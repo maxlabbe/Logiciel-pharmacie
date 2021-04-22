@@ -1,0 +1,43 @@
+/**
+_*_
+_*/
+package fr.data.drug;
+
+/**
+_*_@author_Max
+_*
+_*/
+enum MedicamentType{
+    Analgésiques,
+    Antalgiques,
+    Antispasmodiques,
+    Anesthésie_locale,
+    Antibiotiques,
+    Anti_inflammatoires,
+    Antiseptiques,
+    Corticoïdes,
+    Anti_fongiques,
+    Artémisinine,
+    Anti_tussifs,
+    Collutoires,
+    Anticoagulants,
+    Antithrombotiques,
+    Diurétiques,
+    Médicaments_psycho_actifs,
+    Anxiolytiques,
+    Imao_inhibiteurs_de_la_monoamine_oxydase,
+    Dopamine,
+    Antiarythmiques,
+    Hormones_androgènes,
+    Thymorégulateurs,
+    Pessaire,
+    Bisphosphonate,
+    Antiémétiques,
+    Anthracyclines,
+    Antigènes,
+    Médicaments_antagonistes,
+    Médicaments_homéopathiques,
+    Médicaments_à_base_de_plante,
+    Micro_immunothérapie,
+    Remèdes_naturels
+}
