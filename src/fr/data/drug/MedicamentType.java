@@ -1,43 +1,46 @@
-/**
-_*_
-_*/
 package fr.data.drug;
 
 /**
-_*_@author_Max
-_*
-_*/
+ * Enum that regroup all the type of drugs you can store in the data of the application
+ * 
+ * @version 2.0 26 Apr 2021
+ * 
+ * @author Max Labbe
+ * @author Mathieu Way
+ * @author Ophelie Foucault
+ * 
+ */
 enum MedicamentType{
-    Analgésiques,
-    Antalgiques,
-    Antispasmodiques,
-    Anesthésie_locale,
-    Antibiotiques,
-    Anti_inflammatoires,
-    Antiseptiques,
-    Corticoïdes,
-    Anti_fongiques,
-    Artémisinine,
-    Anti_tussifs,
-    Collutoires,
-    Anticoagulants,
-    Antithrombotiques,
-    Diurétiques,
-    Médicaments_psycho_actifs,
-    Anxiolytiques,
-    Imao_inhibiteurs_de_la_monoamine_oxydase,
-    Dopamine,
-    Antiarythmiques,
-    Hormones_androgènes,
-    Thymorégulateurs,
-    Pessaire,
-    Bisphosphonate,
-    Antiémétiques,
-    Anthracyclines,
-    Antigènes,
-    Médicaments_antagonistes,
-    Médicaments_homéopathiques,
-    Médicaments_à_base_de_plante,
-    Micro_immunothérapie,
-    Remèdes_naturels
+    ANALGÉSIQUES,
+    ANTALGIQUES,
+    ANTISPASMODIQUES,
+    ANESTHÉSIE_LOCALE,
+    ANTIBIOTIQUES,
+    ANTI_INFLAMMATOIRES,
+    ANTISEPTIQUES,
+    CORTICOÏDES,
+    ANTI_FONGIQUES,
+    ARTÉMISININE,
+    ANTI_TUSSIFS,
+    COLLUTOIRES,
+    ANTICOAGULANTS,
+    ANTITHROMBOTIQUES,
+    DIURÉTIQUES,
+    MÉDICAMENTS_PSYCHO_ACTIFS,
+    ANXIOLYTIQUES,
+    IMAO_INHIBITEURS_DE_LA_MONOAMINE_OXYDASE,
+    DOPAMINE,
+    ANTIARYTHMIQUES,
+    HORMONES_ANDROGÈNES,
+    THYMORÉGULATEURS,
+    PESSAIRE,
+    BISPHOSPHONATE,
+    ANTIÉMÉTIQUES,
+    ANTHRACYCLINES,
+    ANTIGÈNES,
+    MÉDICAMENTS_ANTAGONISTES,
+    MÉDICAMENTS_HOMÉOPATHIQUES,
+    MÉDICAMENTS_À_BASE_DE_PLANTE,
+    MICRO_IMMUNOTHÉRAPIE,
+    REMÈDES_NATURELS
 }
