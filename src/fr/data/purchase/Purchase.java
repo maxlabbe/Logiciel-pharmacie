@@ -1,5 +1,8 @@
 package fr.data.purchase;
 
+import fr.data.customer.Customer;
+import fr.data.drug.Drug;
+
 /**
  * Purchase class. This class is use when a purchase is made by a customer. It has the amount of the purchase, an id, a date,
  * a tag that say if there was a prescription, the  number of product bought and the list of them and the customer store id.
@@ -29,10 +32,10 @@ public class Purchase {
     private int numberOfProducts;
     
     /**The id of the drugs bought*/
-    private int[] medicines = new int[numberOfProducts];
+    private Drug[] drugs = new Drug[numberOfProducts];
     
     /**The store id of the customer that made the purchase*/
-    private int customerId;
+    private Customer customer;
 
     /**
      * Ctor of the class Purchase
@@ -42,19 +45,19 @@ public class Purchase {
      * @param month The month the purchase was made
      * @param year The year the purchase was made
      * @param prescription The tag that tell if there was a prescription
-     * @param medicines The ids of the medicines bought
+     * @param drugs The drugs bought
      * @param customerId The customer's store id
      */
-    public Purchase(int amount, int id, int day, int month, int year, boolean prescription, int[] medicines, int customerId) {
+    public Purchase(int amount, int id, int day, int month, int year, boolean prescription, Drug[] drugs, Customer customer) {
 	this.amount = amount;
-	this.id = customerId;
+	this.id = id;
 	this.date[0] = day;
 	this.date[1] = month;
 	this.date[2] = year;
 	this.prescription = prescription;
-	this.numberOfProducts = medicines.length;
-	this.medicines = medicines;
-	this.customerId = customerId;
+	this.numberOfProducts = drugs.length;
+	this.drugs = drugs;
+	this.customer = customer;
     }
 
     /**
@@ -62,7 +65,7 @@ public class Purchase {
      * @return the amount
      */
     public double getAmount() {
-        return amount;
+        return this.amount;
     }
 
     /**
@@ -78,7 +81,7 @@ public class Purchase {
      * @return int the id
      */
     public int getId() {
-        return id;
+        return this.id;
     }
 
     /**
@@ -94,7 +97,7 @@ public class Purchase {
      * @return int[3] the date
      */
     public int[] getDate() {
-        return date;
+        return this.date;
     }
 
     /**
@@ -114,7 +117,7 @@ public class Purchase {
      * @return boolean the prescription's tag value
      */
     public boolean isPrescription() {
-        return prescription;
+        return this.prescription;
     }
 
     /**
@@ -130,7 +133,7 @@ public class Purchase {
      * @return int the numberOfProducts
      */
     public int getNumberOfProducts() {
-        return numberOfProducts;
+        return this.numberOfProducts;
     }
 
     /**
@@ -143,33 +146,33 @@ public class Purchase {
 
     /**
      * Return the medicines bought
-     * @return int[] the medicines bought
+     * @return Drug[] the medicines bought
      */
-    public int[] getMedicines() {
-        return medicines;
+    public Drug[] getMedicines() {
+        return this.drugs;
     }
 
     /**
      * Set the medicines bought
      * @param medicines the medicines to set
      */
-    public void setMedicines(int[] medicines) {
-        this.medicines = medicines;
+    public void setMedicines(Drug[] medicines) {
+        this.drugs = medicines;
     }
 
     /**
-     * Return the customer store id
-     * @return int the customerId
+     * Return the customer
+     * @return Customer the customer
      */
-    public int getCustomerId() {
-        return customerId;
+    public Customer getCustomer() {
+        return this.customer;
     }
 
     /**
-     * Set the customer store id
-     * @param customerId the customerId to set
+     * Set the customer
+     * @param customer the customer to set
      */
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }
