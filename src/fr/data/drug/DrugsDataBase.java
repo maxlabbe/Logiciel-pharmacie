@@ -27,7 +27,23 @@ public class DrugsDataBase implements ISerializable {
      * Ctor of the drug data base
      */
     public DrugsDataBase() {
+	if(instance == null)
+	    instance = this;
 	this.drugs = new ArrayList<Drug>();
+    }
+
+    /**
+     * Singleton ref
+     */
+    private static DrugsDataBase instance;
+    /**
+     * Singleton Referece Access
+     * @return
+     */
+    public static DrugsDataBase Instance() {
+	if(instance == null)
+	    instance = new DrugsDataBase();
+	return instance;
     }
     
     /**

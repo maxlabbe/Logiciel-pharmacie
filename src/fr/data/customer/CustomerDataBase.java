@@ -4,10 +4,7 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
-import fr.data.FileManager;
 import fr.data.ISerializable;
-import fr.data.drug.DrugsDataBase;
-import fr.data.purchase.PurchaseDataBase;
 
 /**
  * This class is the customer data base class. Its purpose is to create a data base to store the drug store's customers.
@@ -22,7 +19,6 @@ import fr.data.purchase.PurchaseDataBase;
  * 
  */
 public class CustomerDataBase implements ISerializable{
-
     /** List of the customers*/
     private ArrayList<Customer> customers;
     
@@ -30,7 +26,23 @@ public class CustomerDataBase implements ISerializable{
      * Ctor of the customers data base
      */
     public CustomerDataBase() {
+	if(instance == null)
+	    instance = this;
 	this.customers = new ArrayList<Customer>();
+    }
+
+    /**
+     * Singleton ref
+     */
+    private static CustomerDataBase instance;
+    /**
+     * Singleton Referece Access
+     * @return
+     */
+    public static CustomerDataBase Instance() {
+	if(instance == null)
+	    instance = new CustomerDataBase();
+	return instance;
     }
     
     /**
