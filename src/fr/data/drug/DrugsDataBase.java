@@ -2,6 +2,9 @@ package fr.data.drug;
 
 import java.util.ArrayList;
 
+import fr.data.ISerializable;
+import com.google.gson.Gson;
+
 /**
  * This class is the Drugs data base class. Its purpose is to create a data base to store the drug store's drugs.
  * The user can add or delete a medicine. He can get a medicine from with its id or his name. 
@@ -15,7 +18,7 @@ import java.util.ArrayList;
  * @author Ophelie Foucault
  * 
  */
-public class DrugsDataBase {
+public class DrugsDataBase implements ISerializable {
 
     /**List of the drugs*/
     private ArrayList<Drug> drugs;
@@ -107,5 +110,16 @@ public class DrugsDataBase {
 	}
 	
 	return drugsFromLab;
+    }
+
+    @Override
+    public String Serialize() {
+	return new Gson().toJson(this);
+    }
+
+    @Override
+    public void Deserialize(String json) {
+	DrugsDataBase database = new Gson().fromJson(json, this.getClass());
+	this.drugs = new ArrayList<Drug>(database.drugs);
     }
 }

@@ -14,15 +14,15 @@ import java.util.ArrayList;
  * @author Ophelie Foucault
  * 
  */
-public class Customer {
+public class Customer{
     /**id the id number of the customer */
     private int id;
 
-    /**name the name of the customer */
-    private String name;
-
     /**firstName the first name of the customer */
     private String firstName;
+
+    /**lastName the last name of the customer */
+    private String lastName;
 
     /**birthday an integer array representing the date of birth
      * the first index is the day
@@ -51,10 +51,10 @@ public class Customer {
      * @param birthYear The customer year of birth
      * @param numberRAMQ The customer insurance number
      */
-    public Customer(int id, String name, String firstName, int birthDay, int birthMonth, int birthYear, int numberRAMQ) {
-	this.id = id;
-	this.name = name;
+    public Customer(String firstName, String lastName, int birthDay, int birthMonth, int birthYear, int numberRAMQ) {
+	this.id = -1;
 	this.firstName = firstName;
+	this.lastName = lastName;
 	this.birthday[0] = birthDay;
 	this.birthday[1] = birthMonth;
 	this.birthday[2] = birthYear;
@@ -72,10 +72,10 @@ public class Customer {
      * @param birthMonth The customer month of birth
      * @param birthYear The customer year of birth
      */
-    public Customer(int id, String name, String firstName, int birthDay, int birthMonth, int birthYear) {
-	this.id = id;
-	this.name = name;
+    public Customer(String firstName, String lastName, int birthDay, int birthMonth, int birthYear) {
+	this.id = -1;
 	this.firstName = firstName;
+	this.lastName = lastName;
 	this.birthday[0] = birthDay;
 	this.birthday[1] = birthMonth;
 	this.birthday[2] = birthYear;
@@ -103,16 +103,16 @@ public class Customer {
      * Return the customer's name 
      * @return String The customer's name
      */
-    public String getName() { 
-	return this.name;
+    public String getLastName() { 
+	return this.lastName;
     }
 
     /**
      * Set the new value of name
      * @param name The name to set
      */
-    public void setName(String name) {
-	this.name = name;
+    public void setLastName(String name) {
+	this.lastName = name;
     }
 
     /**
@@ -221,5 +221,5 @@ public class Customer {
 	if(this.allergies.contains(allergy)) {
 	    this.allergies.remove(allergy);
 	}
-    }	
+    }
 }

@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import fr.data.customer.Customer;
 import fr.data.drug.Drug;
 
-public class PurchaseDataBase {
+import fr.data.ISerializable;
+import com.google.gson.Gson;
+
+public class PurchaseDataBase implements ISerializable {
     
     /** List of purchases*/
     private ArrayList<Purchase> purchases;
@@ -100,5 +103,16 @@ public class PurchaseDataBase {
 	}
 	
 	return purchasesByCustomer;
+    }
+
+    @Override
+    public String Serialize() {
+	return new Gson().toJson(this);
+    }
+
+    @Override
+    public void Deserialize(String json) {
+	PurchaseDataBase database = new Gson().fromJson(json, this.getClass());
+	this.purchases = new ArrayList<Purchase>(database.purchases);
     }
 }

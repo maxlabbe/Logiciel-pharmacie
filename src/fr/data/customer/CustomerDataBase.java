@@ -2,6 +2,9 @@ package fr.data.customer;
 
 import java.util.ArrayList;
 
+import fr.data.ISerializable;
+import com.google.gson.Gson;
+
 /**
  * This class is the customer data base class. Its purpose is to create a data base to store the drug store's customers.
  * The user can add or delete a customer. He can also get a customer from the data base with his store id or his full name and his date of birth.
@@ -14,7 +17,7 @@ import java.util.ArrayList;
  * @author Ophelie Foucault
  * 
  */
-public class CustomerDataBase {
+public class CustomerDataBase implements ISerializable{
 
     /** List of the customers*/
     private ArrayList<Customer> customers;
@@ -31,6 +34,7 @@ public class CustomerDataBase {
      * @param customer The customer to add
      */
     public void addCustomer(Customer customer) {
+	customer.setId(customers.size());
 	this.customers.add(customer);
     }
     
@@ -67,11 +71,14 @@ public class CustomerDataBase {
      * @param year The customer's year of birth
      * @return Customer The customer to get
      */
-    public Customer getCustomer(String name, String firstName, int day, int month, int year) {
+    public Customer getCustomer(String firstName, String lastName, int day, int month, int year) {
 	for(int customerIndex = 0; customerIndex < customers.size(); customerIndex++) {
 	    Customer customer = customers.get(customerIndex);
-	    if(customer.getName() == name && customer.getFirstName() == firstName && 
-		    customer.getBirthday()[0] == day && customer.getBirthday()[1] == month && customer.getBirthday()[2] == year ) {
+	    if(customer.getFirstName() == firstName
+		    && customer.getLastName() == lastName 
+		    && customer.getBirthday()[0] == day
+		    && customer.getBirthday()[1] == month
+		    && customer.getBirthday()[2] == year ) {
 		return customer;
 	    }
 	}
@@ -87,4 +94,14 @@ public class CustomerDataBase {
 	return this.customers;
     }
 
+    @Override
+    public String Serialize() {
+	return new Gson().toJson(this);
+    }
+
+    @Override
+    public void Deserialize(String json) {
+	CustomerDataBase newDB = new Gson().fromJson(json, this.getClass());
+	this.customers = new ArrayList<Customer>(newDB.customers);
+    }
 }
