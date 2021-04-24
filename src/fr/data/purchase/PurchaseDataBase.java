@@ -41,7 +41,13 @@ public class PurchaseDataBase implements ISerializable {
      * @param purchase The purchase to add
      */
     public void addPurchase(Purchase purchase){
+	DrugsDataBase drugDB = DrugsDataBase.Instance();
 	this.purchases.add(purchase);
+	for(Drug drug : purchase.getMedicines()) {
+	    Drug drugRef = drugDB.getDrug(drug.getId());
+	    int quantity = drugRef.getQuantity();
+	    drugDB.getDrug(drug.getId()).setQuantity(quantity - drug.getQuantity());
+	}
     }
     
     /**
