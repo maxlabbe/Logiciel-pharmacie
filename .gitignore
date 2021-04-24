@@ -26,3 +26,4 @@ hs_err_pid*
 customers.json
 drugs.json
 purchases.json
+.settings
