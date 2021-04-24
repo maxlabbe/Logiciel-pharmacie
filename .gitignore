@@ -23,3 +23,6 @@
 hs_err_pid*
 .classpath
 .project
+customers.json
+drugs.json
+purchases.json
