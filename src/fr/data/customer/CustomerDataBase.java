@@ -2,8 +2,12 @@ package fr.data.customer;
 
 import java.util.ArrayList;
 
-import fr.data.ISerializable;
 import com.google.gson.Gson;
+
+import fr.data.FileManager;
+import fr.data.ISerializable;
+import fr.data.drug.DrugsDataBase;
+import fr.data.purchase.PurchaseDataBase;
 
 /**
  * This class is the customer data base class. Its purpose is to create a data base to store the drug store's customers.
@@ -74,15 +78,17 @@ public class CustomerDataBase implements ISerializable{
     public Customer getCustomer(String firstName, String lastName, int day, int month, int year) {
 	for(int customerIndex = 0; customerIndex < customers.size(); customerIndex++) {
 	    Customer customer = customers.get(customerIndex);
-	    if(customer.getFirstName() == firstName
-		    && customer.getLastName() == lastName 
+	    boolean firstNameMatch = customer.getFirstName().equals(firstName);
+	    boolean lastNameMatch = customer.getLastName().equals(lastName);
+	    System.out.println(firstNameMatch);
+	    if(firstNameMatch
+		    && lastNameMatch
 		    && customer.getBirthday()[0] == day
 		    && customer.getBirthday()[1] == month
 		    && customer.getBirthday()[2] == year ) {
 		return customer;
 	    }
 	}
-	
 	return null;
     }
     
@@ -94,12 +100,10 @@ public class CustomerDataBase implements ISerializable{
 	return this.customers;
     }
 
-    @Override
     public String Serialize() {
 	return new Gson().toJson(this);
     }
 
-    @Override
     public void Deserialize(String json) {
 	CustomerDataBase newDB = new Gson().fromJson(json, this.getClass());
 	this.customers = new ArrayList<Customer>(newDB.customers);

@@ -32,6 +32,7 @@ public class FileManager {
             e.printStackTrace();
         }
     }
+    
     public static <T> T LoadDatabase(String databaseName, Class<T> type) throws IllegalAccessException, InstantiationException {
         try {
             String json = Files.readString(Paths.get(databaseName + ".json"));

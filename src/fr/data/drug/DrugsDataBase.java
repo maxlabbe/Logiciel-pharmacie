@@ -70,7 +70,7 @@ public class DrugsDataBase implements ISerializable {
     public Drug getDrug(String name) {
 	for(int drugIndex = 0; drugIndex < drugs.size(); drugIndex++) {
 	    Drug drug = this.drugs.get(drugIndex);
-	    if(drug.getName() == name) {
+	    if(drug.getName().equals(name)) {
 		return drug;
 	    }
 	}
@@ -104,20 +104,31 @@ public class DrugsDataBase implements ISerializable {
 	ArrayList<Drug> drugsFromLab = new ArrayList<Drug>();
 	for(int drugIndex = 0; drugIndex < drugs.size(); drugIndex++) {
 	    Drug drug = drugs.get(drugIndex);
-	    if(drug.getLaboratory() == lab) {
+	    if(drug.getLaboratory().equals(lab)) {
 		drugsFromLab.add(drug);
 	    }
 	}
 	
 	return drugsFromLab;
     }
+    
+    /**
+     * Check if the quantity of a drug is less or equal than the quantity of this drug in the store's stock
+     * @param drug The target drug
+     * @return boolean Return true if it is less or equal
+     */
+    public boolean checkQuantity(Drug drug) {
+	if(drug.getQuantity() <= this.getDrug(drug.getId()).getQuantity()) {
+	    return true;
+	}
+	
+	return false;
+    }
 
-    @Override
     public String Serialize() {
 	return new Gson().toJson(this);
     }
 
-    @Override
     public void Deserialize(String json) {
 	DrugsDataBase database = new Gson().fromJson(json, this.getClass());
 	this.drugs = new ArrayList<Drug>(database.drugs);

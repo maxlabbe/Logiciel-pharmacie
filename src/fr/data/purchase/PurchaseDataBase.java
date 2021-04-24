@@ -105,12 +105,10 @@ public class PurchaseDataBase implements ISerializable {
 	return purchasesByCustomer;
     }
 
-    @Override
     public String Serialize() {
 	return new Gson().toJson(this);
     }
 
-    @Override
     public void Deserialize(String json) {
 	PurchaseDataBase database = new Gson().fromJson(json, this.getClass());
 	this.purchases = new ArrayList<Purchase>(database.purchases);

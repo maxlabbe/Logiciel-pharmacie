@@ -39,7 +39,6 @@ public class Purchase {
 
     /**
      * Ctor of the class Purchase
-     * @param amount The amount of the purchase
      * @param id The id of the purchase
      * @param day The day the purchase was made
      * @param month The month the purchase was made
@@ -49,7 +48,11 @@ public class Purchase {
      * @param customerId The customer's store id
      */
     public Purchase(int amount, int id, int day, int month, int year, boolean prescription, Drug[] drugs, Customer customer) {
-	this.amount = amount;
+	this.amount = 0;
+	for(Drug drug : drugs) {
+	    amount += drug.getPrice();
+	}
+	
 	this.id = id;
 	this.date[0] = day;
 	this.date[1] = month;

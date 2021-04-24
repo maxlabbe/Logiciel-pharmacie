@@ -3,11 +3,13 @@
  */
 package fr.userinterface;
 
+import javax.swing.*;
+
 /**
  * @author Max
  *
  */
-class Panel {
+class Panel extends JPanel{
 
 	/**
 	 * 
