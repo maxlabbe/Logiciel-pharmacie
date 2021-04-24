@@ -17,8 +17,8 @@ import java.io.IOException;
  */
 public class FileManager {
     /**
-     * 
-     * @param databaseName
+     * Save a database into a Json File
+     * @param databaseName name of the file to save the database into
      * @param database
      */
     public static void SaveDatabase(String databaseName, ISerializable database){
@@ -32,6 +32,15 @@ public class FileManager {
             e.printStackTrace();
         }
     }
+    /**
+     * Load a database from a Json File
+     * @param <T>
+     * @param databaseName name of the file to load the database from
+     * @param type
+     * @return
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     */
     public static <T> T LoadDatabase(String databaseName, Class<T> type) throws IllegalAccessException, InstantiationException {
         try {
             String json = Files.readString(Paths.get(databaseName + ".json"));
