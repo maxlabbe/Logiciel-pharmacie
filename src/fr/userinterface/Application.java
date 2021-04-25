@@ -18,6 +18,8 @@ public class Application {
 	Customer customer = new Customer("Jean", "Dupont", 25, 06, 1995);
 	customers.addCustomer(customer);
         
+	System.out.println(CustomerDataBase.Instance().getAllCustomers().size());
+	
         // Save Databases
         FileManager.SaveDatabase("customers", customers);
         FileManager.SaveDatabase("drugs", drugs);

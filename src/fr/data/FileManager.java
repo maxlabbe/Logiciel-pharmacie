@@ -5,7 +5,9 @@ import com.google.gson.Gson;
 import fr.data.ISerializable;
 
 import java.io.FileWriter;
+import java.io.File;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.IOException;
 /**
@@ -31,7 +33,7 @@ public class FileManager {
             logFile.write(gson.toJson(database));
             logFile.close();
         } catch (IOException e) {
-            System.out.println("Un erreur est survenu lors de la sauvegarde d'une base de données (name:" + databaseName + ")");
+            System.out.println("Un erreur est survenu lors de la sauvegarde d'une base de donnÃ©es (name:" + databaseName + ")");
             e.printStackTrace();
         }
     }
@@ -46,15 +48,24 @@ public class FileManager {
      * @throws InstantiationException
      */
     public static <T> T LoadDatabase(String databaseName, Class<T> type) throws IllegalAccessException, InstantiationException {
+	Path dbPath = Paths.get(databaseName + ".json");
         try {
-            String json = Files.readString(Paths.get(databaseName + ".json"));
+            String json = Files.readString(dbPath);
             return new Gson().fromJson(json, type);
 	} catch (IOException e) {
-            /*
-             * System.out.println("Un erreur est survenu lors du chargement d'une base de données (name:" + databaseName + ")");
-             * e.printStackTrace();
-            */
-            return type.newInstance();
+	    	// Get the file
+	        File f = new File(dbPath.toString());
+	        // Check if the specified file
+	        // Exists or not
+	        if (f.exists()){
+	            System.out.println("Un erreur est survenu lors du chargement d'une base de donnï¿½es (name:" + databaseName + ")");
+	            e.printStackTrace();
+	            return null;
+	        }
+	        else {
+		    System.out.println("CrÃ©ation d'une base de donnÃ©e de type: " + type.getName());
+	            return type.newInstance();
+	        }
         }
     }
 }

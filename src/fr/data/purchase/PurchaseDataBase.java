@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import fr.data.customer.Customer;
 import fr.data.drug.Drug;
-
+import fr.data.drug.DrugsDataBase;
 import fr.data.ISerializable;
 import com.google.gson.Gson;
 
@@ -17,6 +17,23 @@ public class PurchaseDataBase implements ISerializable {
      * Ctor of the purchase data base
      */
     public PurchaseDataBase() {
+	if(instance == null)
+	    instance = this;
+	this.purchases = new ArrayList<Purchase>();
+    }
+
+    /**
+     * Singleton ref
+     */
+    private static PurchaseDataBase instance;
+    /**
+     * Singleton Referece Access
+     * @return
+     */
+    public static PurchaseDataBase Instance() {
+	if(instance == null)
+	    instance = new PurchaseDataBase();
+	return instance;
     }
 
     /**
@@ -24,7 +41,13 @@ public class PurchaseDataBase implements ISerializable {
      * @param purchase The purchase to add
      */
     public void addPurchase(Purchase purchase){
+	DrugsDataBase drugDB = DrugsDataBase.Instance();
 	this.purchases.add(purchase);
+	for(Drug drug : purchase.getMedicines()) {
+	    Drug drugRef = drugDB.getDrug(drug.getId());
+	    int quantity = drugRef.getQuantity();
+	    drugDB.getDrug(drug.getId()).setQuantity(quantity - drug.getQuantity());
+	}
     }
     
     /**
