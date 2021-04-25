@@ -1,6 +1,9 @@
 package fr.data;
 
 import com.google.gson.Gson;
+
+import fr.data.ISerializable;
+
 import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;

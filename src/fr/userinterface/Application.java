@@ -22,7 +22,7 @@ public class Application {
         FileManager.SaveDatabase("customers", customers);
         FileManager.SaveDatabase("drugs", drugs);
         FileManager.SaveDatabase("purchases", purchases);
-        Frame frame = new Frame();
+        TestFrame frame = new TestFrame();
         frame.init();
     }
 
