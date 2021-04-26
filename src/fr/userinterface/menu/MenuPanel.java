@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 
 public class MenuPanel extends JPanel{
     private MenuButton clientButton;
@@ -25,13 +26,13 @@ public class MenuPanel extends JPanel{
 	this.add(titlePanel);
 	titlePanel.setLayout(null);
 	
-	JLabel lblNewLabel = new JLabel("Menu");
-	lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-	lblNewLabel.setForeground(Color.WHITE);
-	lblNewLabel.setFont(new Font("Javanese Text", Font.BOLD, 45));
-	lblNewLabel.setBackground(new Color(175, 238, 238));
-	lblNewLabel.setBounds(0, 0, 300, 60);
-	titlePanel.add(lblNewLabel);
+	JLabel titleLabel = new JLabel("Menu");
+	titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+	titleLabel.setForeground(Color.WHITE);
+	titleLabel.setFont(new Font("Javanese Text", Font.BOLD, 45));
+	titleLabel.setBackground(new Color(175, 238, 238));
+	titleLabel.setBounds(0, 0, 300, 60);
+	titlePanel.add(titleLabel);
 	
 	this.clientButton = new MenuButton("Client", new int[] {0, 60, 300, 75});
 	this.add(this.clientButton);
