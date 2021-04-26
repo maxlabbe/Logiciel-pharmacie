@@ -8,11 +8,17 @@ import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.event.EventListenerList;
+
+import fr.userinterface.event.MenuSelectedEvent;
+import fr.userinterface.event.MenuSelectedListener;
 
 public class MenuPanel extends JPanel{
     private MenuButton clientButton;
     private MenuButton drugButton;
     private MenuButton purchaseButton;
+    
+    private EventListenerList listeners = new EventListenerList();
 
     public MenuPanel() {
 	this.setBackground(Color.decode("#69C3FF"));
@@ -66,17 +72,36 @@ public class MenuPanel extends JPanel{
 	clientButton.activateButton();
 	drugButton.deactivateButton();
 	purchaseButton.deactivateButton();
+	OnMenuSelectedEvent(new MenuSelectedEvent(this, "customersPanel"));
     }
     
     private void drugMousePressed(java.awt.event.MouseEvent event) {
 	clientButton.deactivateButton();
 	drugButton.activateButton();
 	purchaseButton.deactivateButton();
+	OnMenuSelectedEvent(new MenuSelectedEvent(this, "drugsPanel"));
     }
     
     private void purchaseMousePressed(java.awt.event.MouseEvent event) {
 	clientButton.deactivateButton();
 	drugButton.deactivateButton();
 	purchaseButton.activateButton();
+	OnMenuSelectedEvent(new MenuSelectedEvent(this, "purchasesPanel"));
+    }
+    
+    public void OnMenuSelectedEvent(MenuSelectedEvent e){
+	Object[] listeners = this.listeners.getListenerList();
+	for(int i = 0; i < listeners.length; i+=2) {
+	    if(listeners[i] == MenuSelectedListener.class) {
+		((MenuSelectedListener)listeners[i+1]).OnMenuSelected(e);
+	    }
+	}
+    }
+    
+    public void AddMenuSelectedListener(MenuSelectedListener listener) {
+	listeners.add(MenuSelectedListener.class, listener);
+    }
+    public void RemoveMenuSelectedListener(MenuSelectedListener listener) {
+	listeners.remove(MenuSelectedListener.class, listener);
     }
 }
