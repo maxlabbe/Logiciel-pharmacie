@@ -1,5 +1,7 @@
 package fr.userinterface;
 
+import java.awt.Color;
+
 import fr.data.*;
 import fr.data.customer.*;
 import fr.data.drug.*;
@@ -36,7 +38,7 @@ public class Application {
         FileManager.SaveDatabase("customers", customers);
         FileManager.SaveDatabase("drugs", drugs);
         FileManager.SaveDatabase("purchases", purchases);
-        TestFrame frame = new TestFrame();
+        TestFrame frame = new TestFrame(Color.decode("#69C3FF"));
         frame.init();
     }
 
