@@ -4,7 +4,10 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
+import fr.data.Database;
 import fr.data.ISerializable;
+import fr.data.event.Action;
+import fr.data.event.DatabaseEvent;
 
 /**
  * This class is the customer data base class. Its purpose is to create a data base to store the drug store's customers.
@@ -18,9 +21,9 @@ import fr.data.ISerializable;
  * @author Ophelie Foucault
  * 
  */
-public class CustomerDataBase implements ISerializable{
+public class CustomerDataBase extends Database<Customer> implements ISerializable{
     /** List of the customers*/
-    private ArrayList<Customer> customers;
+    //private ArrayList<Customer> customers;
     
     /**
      * Ctor of the customers data base
@@ -28,7 +31,7 @@ public class CustomerDataBase implements ISerializable{
     public CustomerDataBase() {
 	if(instance == null)
 	    instance = this;
-	this.customers = new ArrayList<Customer>();
+	this.rows = new ArrayList<Customer>();
     }
 
     /**
@@ -50,8 +53,9 @@ public class CustomerDataBase implements ISerializable{
      * @param customer The customer to add
      */
     public void addCustomer(Customer customer) {
-	customer.setId(customers.size());
-	this.customers.add(customer);
+	customer.setId(rows.size());
+	this.rows.add(customer);
+	OnRowAdded(new DatabaseEvent<Customer>(this, Customer.class, customer, Action.ADD));
     }
     
     /**
@@ -59,7 +63,8 @@ public class CustomerDataBase implements ISerializable{
      * @param customer The customer to delete
      */
     public void deleteCustomer(Customer customer) {
-	this.customers.remove(customer);
+	this.rows.remove(customer);
+	OnRowAdded(new DatabaseEvent<Customer>(this, Customer.class, customer, Action.REMOVE));
     }
     
     /**
@@ -68,8 +73,8 @@ public class CustomerDataBase implements ISerializable{
      * @return Customer The customer to get
      */
     public Customer getCustomer(int id) {
-	for(int customerIndex = 0; customerIndex < customers.size(); customerIndex++) {
-	    Customer customer = this.customers.get(customerIndex);
+	for(int customerIndex = 0; customerIndex < rows.size(); customerIndex++) {
+	    Customer customer = (Customer) this.rows.get(customerIndex);
 	    if(customer.getId() == id) {
 		return customer;
 	    }
@@ -88,8 +93,8 @@ public class CustomerDataBase implements ISerializable{
      * @return Customer The customer to get
      */
     public Customer getCustomer(String firstName, String lastName, int day, int month, int year) {
-	for(int customerIndex = 0; customerIndex < customers.size(); customerIndex++) {
-	    Customer customer = customers.get(customerIndex);
+	for(int customerIndex = 0; customerIndex < rows.size(); customerIndex++) {
+	    Customer customer = (Customer) rows.get(customerIndex);
 	    boolean firstNameMatch = customer.getFirstName().equals(firstName);
 	    boolean lastNameMatch = customer.getLastName().equals(lastName);
 	    System.out.println(firstNameMatch);
@@ -109,7 +114,7 @@ public class CustomerDataBase implements ISerializable{
      * @return ArrayList The list of the customers
      */
     public ArrayList<Customer> getAllCustomers(){
-	return this.customers;
+	return this.rows;
     }
 
     public String Serialize() {
@@ -118,6 +123,6 @@ public class CustomerDataBase implements ISerializable{
 
     public void Deserialize(String json) {
 	CustomerDataBase newDB = new Gson().fromJson(json, this.getClass());
-	this.customers = new ArrayList<Customer>(newDB.customers);
+	this.rows = new ArrayList<Customer>(newDB.rows);
     }
 }

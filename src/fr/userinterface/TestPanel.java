@@ -4,6 +4,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+
 import java.awt.Color;
 
 public class TestPanel extends JPanel {
@@ -16,7 +17,7 @@ public class TestPanel extends JPanel {
 	JRadioButton rdbtnNewRadioButton = new JRadioButton("Client");
 	rdbtnNewRadioButton.setBounds(51, 71, 103, 21);
 	add(rdbtnNewRadioButton);
-	
+
 	JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("medicaments");
 	rdbtnNewRadioButton_1.setBounds(51, 116, 103, 21);
 	add(rdbtnNewRadioButton_1);
@@ -25,5 +26,9 @@ public class TestPanel extends JPanel {
 	rdbtnNewRadioButton_2.setBounds(51, 174, 103, 21);
 	add(rdbtnNewRadioButton_2);
 
+    }
+    
+    private void OnMenuSelected() {
+	
     }
 }

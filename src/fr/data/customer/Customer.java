@@ -2,6 +2,8 @@ package fr.data.customer;
 
 import java.util.ArrayList;
 
+import fr.data.Row;
+
 /**
  * This class is the customer class. Its purpose is to create, store and modify the customers's data.
  * Each customer have a name, first name, birthday, insurance, number of insurance and a list of its allergies.
@@ -14,7 +16,7 @@ import java.util.ArrayList;
  * @author Ophelie Foucault
  * 
  */
-public class Customer{
+public class Customer extends Row{
     /**id the id number of the customer */
     private int id;
 
@@ -221,5 +223,15 @@ public class Customer{
 	if(this.allergies.contains(allergy)) {
 	    this.allergies.remove(allergy);
 	}
+    }
+
+    @Override
+    public String[] GetRowValues() {
+	String[] values = new String[3];
+	values[0] = this.getLastName();
+	values[1] = this.getFirstName();
+	int[] date = this.getBirthday();
+	values[2] = date[0] + "/" + date[1] + "/" + date[2];
+	return values;
     }
 }
