@@ -12,7 +12,7 @@ import fr.userinterface.database.Table;
 import fr.userinterface.event.MenuSelectedEvent;
 import fr.userinterface.event.MenuSelectedListener;
 import fr.userinterface.menu.MenuPanel;
-import fr.userinterface.researchPanel.ResearchPanel;
+import fr.userinterface.researchPanel.ClientSearchPanel;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;

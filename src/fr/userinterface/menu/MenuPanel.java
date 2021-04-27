@@ -87,7 +87,7 @@ public class MenuPanel extends JPanel{
 	clientButton.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mousePressed(MouseEvent e) {
-		clientMousePressed(e);
+		clientMousePressed();
 	    }
 	});
 
@@ -104,7 +104,7 @@ public class MenuPanel extends JPanel{
 	drugButton.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mousePressed(MouseEvent e) {
-		drugMousePressed(e);
+		drugMousePressed();
 	    }
 	});
 
@@ -121,16 +121,15 @@ public class MenuPanel extends JPanel{
 	purchaseButton.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mousePressed(MouseEvent e) {
-		purchaseMousePressed(e);
+		purchaseMousePressed();
 	    }
 	});
     }
 
     /**
-     * The action when the client button is pressed 
-     * @param event The mouse event of the button
+     * The action when the client button is pressed
      */
-    private void clientMousePressed(java.awt.event.MouseEvent event) {
+    private void clientMousePressed() {
 	clientButton.activateButton();
 	drugButton.deactivateButton();
 	purchaseButton.deactivateButton();
@@ -139,9 +138,8 @@ public class MenuPanel extends JPanel{
 
     /**
      * The action when the drug button is pressed 
-     * @param event The mouse event of the button
      */
-    private void drugMousePressed(java.awt.event.MouseEvent event) {
+    private void drugMousePressed() {
 	clientButton.deactivateButton();
 	drugButton.activateButton();
 	purchaseButton.deactivateButton();
@@ -150,9 +148,8 @@ public class MenuPanel extends JPanel{
 
     /**
      * The action when the purchase button is pressed 
-     * @param event The mouse event of the button
      */
-    private void purchaseMousePressed(java.awt.event.MouseEvent event) {
+    private void purchaseMousePressed() {
 	clientButton.deactivateButton();
 	drugButton.deactivateButton();
 	purchaseButton.activateButton();

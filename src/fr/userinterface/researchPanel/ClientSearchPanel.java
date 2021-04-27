@@ -15,7 +15,7 @@ import javax.swing.border.MatteBorder;
  * @author Ophelie Foucault
  * 
  */
-public class ResearchPanel extends JPanel{
+public class ClientSearchPanel extends JPanel{
     /** The panel main color */
     private Color mainColor;
 
@@ -47,7 +47,7 @@ public class ResearchPanel extends JPanel{
      * Ctor of the research panel
      * @param mainColor The panel's main color
      */
-    public ResearchPanel(Color mainColor) {
+    public ClientSearchPanel(Color mainColor) {
 	/* Set the main color then assign it to the panel*/
 	this.mainColor = mainColor;
 	this.setBackground(this.mainColor);
