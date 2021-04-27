@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 
 import fr.userinterface.menu.MenuPanel;
-import fr.userinterface.researchPanel.ResearchPanel;
+import fr.userinterface.researchPanel.ClientSearchPanel;
 
 /**
  * This class is the left part of the user interface. 
@@ -27,7 +27,7 @@ public class LeftPanel extends JPanel{
     private MenuPanel menuPanel;
     
     /**The research panel*/
-    private ResearchPanel researchPanel;
+    private ClientSearchPanel researchPanel;
     
     /**The visual separator between the menu panel and the research panel*/
     private JPanel separator;
@@ -68,7 +68,7 @@ public class LeftPanel extends JPanel{
 	this.add(separator, gbc_separator);
 	
 	/* Create the search panel and its constraints */
-	this.researchPanel = new ResearchPanel(this.mainColor);
+	this.researchPanel = new ClientSearchPanel(this.mainColor);
 	GridBagConstraints gbc_searchPanel = new GridBagConstraints();
 	gbc_searchPanel.gridwidth = 3;
 	gbc_searchPanel.gridx = 0;
