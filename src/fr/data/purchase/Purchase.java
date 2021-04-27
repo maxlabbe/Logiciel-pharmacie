@@ -28,11 +28,8 @@ public class Purchase {
     /**Tag that tell if the purchase was made with a prescription*/
     private boolean prescription;
     
-    /**The number of product bought*/
-    private int numberOfProducts;
-    
     /**The id of the drugs bought*/
-    private Drug[] drugs = new Drug[numberOfProducts];
+    private Drug[] drugs;
     
     /**The store id of the customer that made the purchase*/
     private Customer customer;
@@ -58,7 +55,6 @@ public class Purchase {
 	this.date[1] = month;
 	this.date[2] = year;
 	this.prescription = prescription;
-	this.numberOfProducts = drugs.length;
 	this.drugs = drugs;
 	this.customer = customer;
     }
@@ -129,22 +125,6 @@ public class Purchase {
      */
     public void setPrescription(boolean prescription) {
         this.prescription = prescription;
-    }
-
-    /**
-     * Return the number of product in the purchase
-     * @return int the numberOfProducts
-     */
-    public int getNumberOfProducts() {
-        return this.numberOfProducts;
-    }
-
-    /**
-     * Set he number of product in the purchase
-     * @param numberOfProducts the numberOfProducts to set
-     */
-    public void setNumberOfProducts(int numberOfProducts) {
-        this.numberOfProducts = numberOfProducts;
     }
 
     /**

@@ -29,7 +29,7 @@ public class Drug {
     /**Price of one quantity of the drug (box, pill...)*/
     private double price;
 
-    /**Quantity of the drug in the store's stocks*/
+    /**Quantity of the drug*/
     private int quantity;
 
     /**
