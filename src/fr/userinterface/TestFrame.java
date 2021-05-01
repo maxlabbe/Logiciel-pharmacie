@@ -1,50 +1,23 @@
 package fr.userinterface;
 
 import java.awt.EventQueue;
-import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
 
 import fr.data.customer.Customer;
 import fr.data.customer.CustomerDataBase;
 import fr.userinterface.database.Table;
-import fr.userinterface.event.MenuSelectedEvent;
-import fr.userinterface.event.MenuSelectedListener;
-import fr.userinterface.menu.MenuPanel;
+import fr.userinterface.leftpart.LeftPanel;
+
 import java.awt.Color;
-import javax.swing.JTextField;
-import javax.swing.DropMode;
-import javax.swing.JButton;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.LineBorder;
-import fr.userinterface.researchPanel.ClientSearchPanel;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import java.awt.FlowLayout;
-import java.awt.Color;
-import javax.swing.JLabel;
-import java.awt.Insets;
 import java.awt.GridLayout;
-import javax.swing.SpringLayout;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import java.awt.CardLayout;
-import javax.swing.JScrollPane;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import javax.swing.JTextField;
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.MatteBorder;
 
 public class TestFrame extends JFrame {
     private Color mainColor;
@@ -53,11 +26,6 @@ public class TestFrame extends JFrame {
     private JPanel databasesPanel;
     private JPanel databasesCards;
     private JPanel customersPanel;
-    private JPanel tabHeader;
-    private JLabel lblNewLabel;
-    private JLabel lblNewLabel_1;
-    private JLabel lblNewLabel_2;
-    private JLabel lblNewLabel_3;
     private JPanel drugsPanel;
     private JPanel tabHeader_2;
     private JLabel lblNewLabel_4;
@@ -71,13 +39,6 @@ public class TestFrame extends JFrame {
     private JLabel lblNewLabel_10;
     private JLabel lblNewLabel_11;
     private JLabel lblNewLabel_12;
-    private JPanel panel;
-    private JPanel row;
-    private JLabel lblNewLabel_13;
-    private JLabel lblNewLabel_14;
-    private JLabel lblNewLabel_15;
-    private JLabel lblNewLabel_16;
-    private JPanel panel_1;
 
     /**
      * Launch the application.

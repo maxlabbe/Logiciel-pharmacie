@@ -1,12 +1,16 @@
-package fr.userinterface;
+package fr.userinterface.leftpart;
 
 import java.awt.*;
 
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 
-import fr.userinterface.menu.MenuPanel;
-import fr.userinterface.researchPanel.ClientSearchPanel;
+import fr.userinterface.event.MenuSelectedEvent;
+import fr.userinterface.event.MenuSelectedListener;
+import fr.userinterface.leftpart.menu.MenuPanel;
+import fr.userinterface.leftpart.researchpanel.*;
+
+
 
 /**
  * This class is the left part of the user interface. 
@@ -27,10 +31,18 @@ public class LeftPanel extends JPanel{
     private MenuPanel menuPanel;
     
     /**The research panel*/
-    private ClientSearchPanel researchPanel;
+    private ClientSearchPanel customerSearchPanel;
+    
+    /**The research panel*/
+    private DrugSearchPanel drugsSearchPanel;
+    
+    /**The research panel*/
+    private PurchaseSearchPanel purchasesSearchPanel;
     
     /**The visual separator between the menu panel and the research panel*/
     private JPanel separator;
+    
+    private JPanel test;
 
     /**
      * Ctor of left panel
@@ -47,8 +59,40 @@ public class LeftPanel extends JPanel{
 	gbl_leftPanel.rowHeights = new int[] {300, 5, 450};
 	this.setLayout(gbl_leftPanel);
 	
+	/* Create the search panel and its constraints */
+	this.test = new JPanel(new CardLayout(0,0));
+	
+	this.customerSearchPanel = new ClientSearchPanel(this.mainColor);
+	this.customerSearchPanel.setName("customerSearchPanel");
+	
+	this.drugsSearchPanel = new DrugSearchPanel(this.mainColor);
+	this.drugsSearchPanel.setName("drugsSearchPanel");
+	
+	this.purchasesSearchPanel = new PurchaseSearchPanel(this.mainColor);
+	this.purchasesSearchPanel.setName("purchasesSearchPanel");
+	
+	GridBagConstraints gbcSearchPanel = new GridBagConstraints();
+	gbcSearchPanel.gridwidth = 3;
+	gbcSearchPanel.gridx = 0;
+	gbcSearchPanel.gridy = 2;
+	gbcSearchPanel.fill = GridBagConstraints.BOTH;
+	
+	this.add(test, gbcSearchPanel);
+	this.test.add(this.customerSearchPanel, "customerSearchPanel");
+	this.test.add(this.drugsSearchPanel, "drugsSearchPanel");
+	this.test.add(this.purchasesSearchPanel, "purchasesSearchPanel");
+	
 	/* Create the menu panel and set its constraints */
 	this.menuPanel = new MenuPanel(this.mainColor);
+	this.menuPanel.AddMenuSelectedListener(new MenuSelectedListener() {
+
+	    public void OnMenuSelected(MenuSelectedEvent e) {
+		// TODO Auto-generated method stub
+		((CardLayout)test.getLayout()).show(test, e.searchPanelName);
+		System.out.println(e.searchPanelName);
+	    }
+	    
+	});
 	GridBagConstraints gbc_menuPanel = new GridBagConstraints();
 	gbc_menuPanel.gridwidth = 3;
 	gbc_menuPanel.gridx = 0;
@@ -66,15 +110,6 @@ public class LeftPanel extends JPanel{
 	gbc_separator.gridy = 1;
 	gbc_separator.fill = GridBagConstraints.BOTH;
 	this.add(separator, gbc_separator);
-	
-	/* Create the search panel and its constraints */
-	this.researchPanel = new ClientSearchPanel(this.mainColor);
-	GridBagConstraints gbc_searchPanel = new GridBagConstraints();
-	gbc_searchPanel.gridwidth = 3;
-	gbc_searchPanel.gridx = 0;
-	gbc_searchPanel.gridy = 2;
-	gbc_searchPanel.fill = GridBagConstraints.BOTH;
-	this.add(this.researchPanel, gbc_searchPanel);
     }
 
 }

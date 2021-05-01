@@ -1,4 +1,4 @@
-package fr.userinterface.menu;
+package fr.userinterface.leftpart.menu;
 
 import java.awt.Color;
 import java.awt.Font;

@@ -1,6 +1,9 @@
-package fr.userinterface.researchPanel;
+package fr.userinterface.leftpart.researchpanel;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 
@@ -26,16 +29,16 @@ public class ClientSearchPanel extends JPanel{
     private JTextField nom;
 
     /** The text field to enter the client's first name */
-    private JTextField prenom;
+    private JTextField firstName;
 
     /** The text field to enter the client's date of birth */
     private JTextField date;
 
     /** The button panel to search the client */
-    private JPanel searchButton;
+    private SearchButton searchButton;
 
     /** The button label to search the client */
-    private JLabel searcrhButtonLabel;
+    private JLabel searchButtonLabel;
 
     /** The button panel to add a new customer */
     private JPanel newButton;
@@ -44,7 +47,7 @@ public class ClientSearchPanel extends JPanel{
     private JLabel newButtonLabel;
 
     /**
-     * Ctor of the research panel
+     * Ctor of the client research panel
      * @param mainColor The panel's main color
      */
     public ClientSearchPanel(Color mainColor) {
@@ -87,18 +90,18 @@ public class ClientSearchPanel extends JPanel{
 	this.add(this.nom, gbc_nom);
 
 	/* Create the first name text field and its constraint */
-	this.prenom = new JTextField();
-	this.prenom.setForeground(Color.LIGHT_GRAY);
-	this.prenom.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-	this.prenom.setText("prenom");
-	this.prenom.setHorizontalAlignment(SwingConstants.CENTER);
-	this.prenom.setBorder(null);
-	GridBagConstraints gbc_prenom = new GridBagConstraints();
-	gbc_prenom.gridwidth = 3;
-	gbc_prenom.gridx = 1;
-	gbc_prenom.gridy = 4;
-	gbc_prenom.fill = GridBagConstraints.BOTH;
-	this.add(this.prenom, gbc_prenom);
+	this.firstName = new JTextField();
+	this.firstName.setForeground(Color.LIGHT_GRAY);
+	this.firstName.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+	this.firstName.setText("prenom");
+	this.firstName.setHorizontalAlignment(SwingConstants.CENTER);
+	this.firstName.setBorder(null);
+	GridBagConstraints gbc_firstName = new GridBagConstraints();
+	gbc_firstName.gridwidth = 3;
+	gbc_firstName.gridx = 1;
+	gbc_firstName.gridy = 4;
+	gbc_firstName.fill = GridBagConstraints.BOTH;
+	this.add(this.firstName, gbc_firstName);
 
 	/* Create the date of birth text field and its constraints */
 	this.date = new JTextField();
@@ -116,21 +119,24 @@ public class ClientSearchPanel extends JPanel{
 	this.date.setColumns(10);
 
 	/* Create the search button and its constraints */
-	this.searchButton = new JPanel();
-	this.searchButton.setBackground(Color.decode("#59B3FF"));
+	this.searchButton = new SearchButton();
+	/* The action of the button when it's clicked */
+	this.searchButton.addMouseListener(new MouseAdapter() {
+	    public void mouseEntered(MouseEvent e)
+	    {
+	        searchButton.mouseEnter();
+	    }
+	    
+	    public void mouseExited(MouseEvent e)
+	    {
+	        searchButton.mouseExit();
+	    }
+	});
 	GridBagConstraints gbc_searchButton = new GridBagConstraints();
 	gbc_searchButton.gridx = 2;
 	gbc_searchButton.gridy = 8;
 	gbc_searchButton.fill = GridBagConstraints.BOTH;
 	this.add(this.searchButton, gbc_searchButton);
-	this.searchButton.setLayout(new GridLayout(1, 0, 0, 0));
-
-	/* Create the search button label and its constraints */
-	this.searcrhButtonLabel = new JLabel("rechercher");
-	this.searcrhButtonLabel.setForeground(Color.decode("#00004F"));
-	this.searcrhButtonLabel.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-	this.searcrhButtonLabel.setHorizontalAlignment(SwingConstants.CENTER);
-	this.searchButton.add(searcrhButtonLabel);
 
 	/* Create the new button and its constraints */
 	this.newButton = new JPanel();
@@ -150,6 +156,11 @@ public class ClientSearchPanel extends JPanel{
 	this.newButtonLabel.setFont(new Font("Segoe UI", Font.PLAIN, 25));
 	this.newButtonLabel.setHorizontalAlignment(SwingConstants.CENTER);
 	this.newButton.add(this.newButtonLabel);
+    }
+    
+    public String[] getResearch() {
+	String[] researches = new String[] {this.nom.getText(), this.firstName.getText(), this.date.getText()};
+	return researches;
     }
 
 }

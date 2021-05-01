@@ -1,4 +1,4 @@
-package fr.userinterface.menu;
+package fr.userinterface.leftpart.menu;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -8,11 +8,11 @@ import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
 import javax.swing.event.EventListenerList;
 
 import fr.userinterface.event.MenuSelectedEvent;
 import fr.userinterface.event.MenuSelectedListener;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -31,6 +31,9 @@ import java.awt.Insets;
 public class MenuPanel extends JPanel{
     /** The main color of the panel */
     private Color mainColor;
+    
+    /** list of the panel depending on the menu */
+    //private PanelManager panelManager;
     
     /** The panel title */
     private JLabel menuTitle;
@@ -65,15 +68,15 @@ public class MenuPanel extends JPanel{
 	setLayout(gridBagLayout);
 
 	/* Create the panel title and its constraint */
-	menuTitle = new JLabel("Menu");
-	menuTitle.setHorizontalAlignment(SwingConstants.CENTER);
-	menuTitle.setForeground(Color.WHITE);
-	menuTitle.setFont(new Font("Segoe UI", Font.BOLD, 30));
+	this.menuTitle = new JLabel("Menu");
+	this.menuTitle.setHorizontalAlignment(SwingConstants.CENTER);
+	this.menuTitle.setForeground(Color.WHITE);
+	this.menuTitle.setFont(new Font("Segoe UI", Font.BOLD, 30));
 	GridBagConstraints gbc_menuTitle = new GridBagConstraints();
 	gbc_menuTitle.insets = new Insets(0, 0, 5, 0);
 	gbc_menuTitle.gridx = 0;
 	gbc_menuTitle.gridy = 0;
-	add(menuTitle, gbc_menuTitle);
+	add(this.menuTitle, gbc_menuTitle);
 
 	/* Create the client button, its constraint*/
 	this.clientButton = new MenuButton(this.mainColor, "Client", new int[] {0, 60, 300, 75});
@@ -85,7 +88,7 @@ public class MenuPanel extends JPanel{
 	this.add(this.clientButton, gbc_clientButton);
 	
 	/* The action of the button when it's clicked */
-	clientButton.addMouseListener(new MouseAdapter() {
+	this.clientButton.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mousePressed(MouseEvent e) {
 		clientMousePressed();
@@ -131,30 +134,33 @@ public class MenuPanel extends JPanel{
      * The action when the client button is pressed
      */
     private void clientMousePressed() {
-	clientButton.activateButton();
-	drugButton.deactivateButton();
-	purchaseButton.deactivateButton();
-	OnMenuSelectedEvent(new MenuSelectedEvent(this, "customersPanel"));
+	this.clientButton.activateButton();
+	this.drugButton.deactivateButton();
+	this.purchaseButton.deactivateButton();
+	//this.panelManager.activateClientPanel();
+	OnMenuSelectedEvent(new MenuSelectedEvent(this, "customersPanel", "customerSearchPanel"));
     }
 
     /**
      * The action when the drug button is pressed 
      */
     private void drugMousePressed() {
-	clientButton.deactivateButton();
-	drugButton.activateButton();
-	purchaseButton.deactivateButton();
-	OnMenuSelectedEvent(new MenuSelectedEvent(this, "drugsPanel"));
+	this.clientButton.deactivateButton();
+	this.drugButton.activateButton();
+	this.purchaseButton.deactivateButton();
+	//this.panelManager.activateDrugPanel();
+	OnMenuSelectedEvent(new MenuSelectedEvent(this, "drugsPanel", "drugsSearchPanel"));
     }
 
     /**
      * The action when the purchase button is pressed 
      */
     private void purchaseMousePressed() {
-	clientButton.deactivateButton();
-	drugButton.deactivateButton();
-	purchaseButton.activateButton();
-	OnMenuSelectedEvent(new MenuSelectedEvent(this, "purchasesPanel"));
+	this.clientButton.deactivateButton();
+	this.drugButton.deactivateButton();
+	this.purchaseButton.activateButton();
+	//this.panelManager.activatePurchasePanel();
+	OnMenuSelectedEvent(new MenuSelectedEvent(this, "purchasesPanel", "purchasesSearchPanel"));
     }
 
     public void OnMenuSelectedEvent(MenuSelectedEvent e){
