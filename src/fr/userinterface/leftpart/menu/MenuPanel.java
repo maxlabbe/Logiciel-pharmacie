@@ -138,7 +138,7 @@ public class MenuPanel extends JPanel{
 	this.drugButton.deactivateButton();
 	this.purchaseButton.deactivateButton();
 	//this.panelManager.activateClientPanel();
-	OnMenuSelectedEvent(new MenuSelectedEvent(this, "customersPanel", "customerSearchPanel"));
+	OnMenuSelectedEvent(new MenuSelectedEvent(this, "customersTable", "customerSearchPanel"));
     }
 
     /**
@@ -149,7 +149,7 @@ public class MenuPanel extends JPanel{
 	this.drugButton.activateButton();
 	this.purchaseButton.deactivateButton();
 	//this.panelManager.activateDrugPanel();
-	OnMenuSelectedEvent(new MenuSelectedEvent(this, "drugsPanel", "drugsSearchPanel"));
+	OnMenuSelectedEvent(new MenuSelectedEvent(this, "drugsTable", "drugsSearchPanel"));
     }
 
     /**
@@ -160,7 +160,7 @@ public class MenuPanel extends JPanel{
 	this.drugButton.deactivateButton();
 	this.purchaseButton.activateButton();
 	//this.panelManager.activatePurchasePanel();
-	OnMenuSelectedEvent(new MenuSelectedEvent(this, "purchasesPanel", "purchasesSearchPanel"));
+	OnMenuSelectedEvent(new MenuSelectedEvent(this, "purchasesTable", "purchasesSearchPanel"));
     }
 
     public void OnMenuSelectedEvent(MenuSelectedEvent e){

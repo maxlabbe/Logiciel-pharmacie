@@ -37,8 +37,7 @@ public class Table<T> extends JPanel {
 	gbl_rightPanel.rowWeights = new double[]{1.0, 1.0, 1.0};
 	this.setLayout(gbl_rightPanel);
 
-	String[] customersPanelHeader = {"Nom", "Prénom", "Date de naissance", "assurance", "Actions"};
-	this.header = new Header(customersPanelHeader);
+	this.header = new Header(colHeaders);
 	this.header.setBackground(this.mainColor);
 	GridBagConstraints gbc_HeadPanel = new GridBagConstraints();
 	gbc_HeadPanel.insets = new Insets(0, 0, 5, 0);

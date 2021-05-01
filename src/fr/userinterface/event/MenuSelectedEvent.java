@@ -3,11 +3,11 @@ package fr.userinterface.event;
 import java.util.EventObject;
 
 public class MenuSelectedEvent extends EventObject{
-    public String mainPanelName;
+    public String tableName;
     public String searchPanelName;
-    public MenuSelectedEvent(Object source, String mainPanelName, String searchPanelName) {
+    public MenuSelectedEvent(Object source, String tableName, String searchPanelName) {
 	super(source);
-	this.mainPanelName = mainPanelName;
+	this.tableName = tableName;
 	this.searchPanelName = searchPanelName;
 	// TODO Auto-generated constructor stub
     }

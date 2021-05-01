@@ -45,7 +45,7 @@ public class LeftPanel extends JPanel{
     
     private JPanel searchCard;
     
-    private JPanel mainPanelsCards;
+    private JPanel tableCard;
 
     /**
      * Ctor of left panel
@@ -56,7 +56,7 @@ public class LeftPanel extends JPanel{
 	this.mainColor = mainColor;
 	this.setBackground(this.mainColor);
 	
-	this.mainPanelsCards = rightPanel.getMainPanelsCards();
+	this.tableCard = rightPanel.getTableCards();
 	
 	/* Create the panel's layout and set the size and number of rows and columns */
 	GridBagLayout gbl_leftPanel = new GridBagLayout();
@@ -95,7 +95,7 @@ public class LeftPanel extends JPanel{
 		// TODO Auto-generated method stub
 		((CardLayout)searchCard.getLayout()).show(searchCard, e.searchPanelName);
 		
-		((CardLayout)mainPanelsCards.getLayout()).show(mainPanelsCards, e.mainPanelName);
+		((CardLayout)tableCard.getLayout()).show(tableCard, e.tableName);
 	    }
 	    
 	});

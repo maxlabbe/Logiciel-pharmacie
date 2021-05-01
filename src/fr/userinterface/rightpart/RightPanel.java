@@ -32,7 +32,7 @@ public class RightPanel extends JPanel{
     private Color mainColor;
     
     /**The panel that contain the different main panels*/
-    private JPanel mainPanelsCards;
+    private JPanel tableCards;
     
     /**The customer table*/
     private Table<Customer> customerTable;
@@ -55,31 +55,31 @@ public class RightPanel extends JPanel{
 	this.setLayout(new GridLayout(0, 1, 0, 0));
 	
 	/*Set the cards panel and its constraint*/
-	mainPanelsCards = new JPanel();
+	tableCards = new JPanel();
 	GridBagConstraints gbc_HeadPanel = new GridBagConstraints();
 	gbc_HeadPanel.fill = GridBagConstraints.BOTH;
 	gbc_HeadPanel.gridx = 0;
 	gbc_HeadPanel.gridy = 0;
-	this.add(mainPanelsCards);
-	mainPanelsCards.setLayout(new CardLayout(0, 0));
+	this.add(tableCards);
+	tableCards.setLayout(new CardLayout(0, 0));
 
 	String[] customersPanelHeader = {"Nom", "Prénom", "Date de naissance", "assurance", "Actions"};
 	customerTable = new Table<Customer>(CustomerDataBase.Instance(), customersPanelHeader, this.mainColor);
-	mainPanelsCards.add(customerTable, "customersPanel");
+	tableCards.add(customerTable, "customersTable");
 
 	String[] drugsPanelHeader = {"Nom", "Quantité", "Laboratoire", "Type", "Actions"};
 	drugTable = new Table<Drug>(DrugsDataBase.Instance(), drugsPanelHeader, this.mainColor);
-	mainPanelsCards.add(customerTable, "customersPanel");
+	tableCards.add(drugTable, "drugsTable");
 	
 	String[] purchasesPanelHeader = {"date", "montant", "ordonnance", "client", "Actions"};
 	purchaseTable = new Table<Purchase>(PurchaseDataBase.Instance(), purchasesPanelHeader, this.mainColor);
-	mainPanelsCards.add(purchaseTable, "purchasesPanel");
+	tableCards.add(purchaseTable, "purchasesTable");
     }
     
     /*Return the cards panel*/
-    public JPanel getMainPanelsCards()
+    public JPanel getTableCards()
     {
-	return this.mainPanelsCards;
+	return this.tableCards;
     }
 
 }
