@@ -9,6 +9,7 @@ import fr.userinterface.event.MenuSelectedEvent;
 import fr.userinterface.event.MenuSelectedListener;
 import fr.userinterface.leftpart.menu.MenuPanel;
 import fr.userinterface.leftpart.researchpanel.*;
+import fr.userinterface.rightpart.RightPanel;
 
 
 
@@ -42,16 +43,20 @@ public class LeftPanel extends JPanel{
     /**The visual separator between the menu panel and the research panel*/
     private JPanel separator;
     
-    private JPanel test;
+    private JPanel searchCard;
+    
+    private JPanel mainPanelsCards;
 
     /**
      * Ctor of left panel
      * @param mainColor The main color of the panel
      */
-    public LeftPanel(Color mainColor) {
+    public LeftPanel(Color mainColor, RightPanel rightPanel) {
 	/* Set the main color then assign it to the panel*/
 	this.mainColor = mainColor;
 	this.setBackground(this.mainColor);
+	
+	this.mainPanelsCards = rightPanel.getMainPanelsCards();
 	
 	/* Create the panel's layout and set the size and number of rows and columns */
 	GridBagLayout gbl_leftPanel = new GridBagLayout();
@@ -60,7 +65,7 @@ public class LeftPanel extends JPanel{
 	this.setLayout(gbl_leftPanel);
 	
 	/* Create the search panel and its constraints */
-	this.test = new JPanel(new CardLayout(0,0));
+	this.searchCard = new JPanel(new CardLayout(0,0));
 	
 	this.customerSearchPanel = new ClientSearchPanel(this.mainColor);
 	this.customerSearchPanel.setName("customerSearchPanel");
@@ -77,10 +82,10 @@ public class LeftPanel extends JPanel{
 	gbcSearchPanel.gridy = 2;
 	gbcSearchPanel.fill = GridBagConstraints.BOTH;
 	
-	this.add(test, gbcSearchPanel);
-	this.test.add(this.customerSearchPanel, "customerSearchPanel");
-	this.test.add(this.drugsSearchPanel, "drugsSearchPanel");
-	this.test.add(this.purchasesSearchPanel, "purchasesSearchPanel");
+	this.add(searchCard, gbcSearchPanel);
+	this.searchCard.add(this.customerSearchPanel, "customerSearchPanel");
+	this.searchCard.add(this.drugsSearchPanel, "drugsSearchPanel");
+	this.searchCard.add(this.purchasesSearchPanel, "purchasesSearchPanel");
 	
 	/* Create the menu panel and set its constraints */
 	this.menuPanel = new MenuPanel(this.mainColor);
@@ -88,7 +93,10 @@ public class LeftPanel extends JPanel{
 
 	    public void OnMenuSelected(MenuSelectedEvent e) {
 		// TODO Auto-generated method stub
-		((CardLayout)test.getLayout()).show(test, e.searchPanelName);
+		((CardLayout)searchCard.getLayout()).show(searchCard, e.searchPanelName);
+		System.out.println(e.searchPanelName);
+		
+		((CardLayout)mainPanelsCards.getLayout()).show(mainPanelsCards, e.mainPanelName);
 		System.out.println(e.searchPanelName);
 	    }
 	    
