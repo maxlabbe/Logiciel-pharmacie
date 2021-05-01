@@ -1,6 +1,5 @@
 package fr.userinterface.rightpart;
 
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -10,15 +9,39 @@ import javax.swing.JScrollPane;
 
 import fr.userinterface.database.Header;
 
+/**
+ * This class is the customer main panel. 
+ * It contains the customers data that the user want to watch.
+ * 
+ * @version 2.0 26 Apr 2021
+ * 
+ * @author Max Labbe
+ * @author Mathieu Way
+ * @author Ophelie Foucault
+ * 
+ */
 public class CustomerMainPanel extends JPanel{
 
+    /**The panel main color */
     private Color mainColor;
+    
+    /**The header panel*/
     private Header customerHeader;
+    
+    /**The part that show the data*/
     private JScrollPane contentPanel;
 
+    /**
+     * Ctor of the customer main panel
+     * @param mainColor The panel main color
+     */
     public CustomerMainPanel(Color mainColor) {
+	
+	/*Set the main color*/
 	this.mainColor = mainColor;
 	this.setBackground(this.mainColor);
+	
+	/*Set the bag layout*/
 	GridBagLayout gbl_rightPanel = new GridBagLayout();
 	gbl_rightPanel.columnWidths = new int[] {686};
 	gbl_rightPanel.rowHeights = new int[] {50, 750};
@@ -26,6 +49,7 @@ public class CustomerMainPanel extends JPanel{
 	gbl_rightPanel.rowWeights = new double[]{1.0, 1.0};
 	this.setLayout(gbl_rightPanel);
 	
+	/* Set the header*/
 	String[] customersPanelHeader = {"Nom", "Prénom", "Date de naissance", "assurance", "Actions"};
 	this.customerHeader = new Header(customersPanelHeader);
 	this.customerHeader.setBackground(this.mainColor);
@@ -35,6 +59,7 @@ public class CustomerMainPanel extends JPanel{
 	gbc_HeadPanel.gridy = 0;
 	this.add(this.customerHeader, gbc_HeadPanel);
 	
+	/*Set the content panel*/
 	this.contentPanel = new JScrollPane();
 	GridBagConstraints gbc_contentPanel = new GridBagConstraints();
 	gbc_contentPanel.fill = GridBagConstraints.BOTH;

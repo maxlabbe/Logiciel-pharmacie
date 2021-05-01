@@ -94,10 +94,8 @@ public class LeftPanel extends JPanel{
 	    public void OnMenuSelected(MenuSelectedEvent e) {
 		// TODO Auto-generated method stub
 		((CardLayout)searchCard.getLayout()).show(searchCard, e.searchPanelName);
-		System.out.println(e.searchPanelName);
 		
 		((CardLayout)mainPanelsCards.getLayout()).show(mainPanelsCards, e.mainPanelName);
-		System.out.println(e.searchPanelName);
 	    }
 	    
 	});
