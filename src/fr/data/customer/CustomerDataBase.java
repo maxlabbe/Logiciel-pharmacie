@@ -22,9 +22,6 @@ import fr.data.event.DatabaseEvent;
  * 
  */
 public class CustomerDataBase extends Database<Customer> implements ISerializable{
-    /** List of the customers*/
-    //private ArrayList<Customer> customers;
-    
     /**
      * Ctor of the customers data base
      */
