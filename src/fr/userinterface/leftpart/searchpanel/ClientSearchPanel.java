@@ -1,25 +1,17 @@
-package fr.userinterface.leftpart.researchpanel;
+package fr.userinterface.leftpart.searchpanel;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.MatteBorder;
 
-import fr.userinterface.newframe.NewDrugFrame;
-import fr.userinterface.newframe.NewPurchaseFrame;
+import fr.userinterface.newframe.NewCustomerFrame;
 
 /**
- * This class is the drug advance research panel of the user interface. 
- * It contains the fields to search a drug and a button to add a new one
+ * This class is the client advance research panel of the user interface. 
+ * It contains the fields to search a client and a button to add a new one
  * 
  * @version 2.0 26 Apr 2021
  * 
@@ -28,36 +20,36 @@ import fr.userinterface.newframe.NewPurchaseFrame;
  * @author Ophelie Foucault
  * 
  */
-public class DrugSearchPanel extends JPanel{
+public class ClientSearchPanel extends JPanel{
     /** The panel main color */
     private Color mainColor;
 
     /** The panel title*/
     private JLabel searchTitle;
 
-    /** The text field to enter the drug's name */ 
+    /** The text field to enter the client's name */ 
     private JTextField nom;
 
-    /** The text field to enter the laboratory's name that made the drug */
-    private JTextField laboratory;
+    /** The text field to enter the client's first name */
+    private JTextField firstName;
 
-    /** The text field to enter the drug's type */
-    private JTextField type;
+    /** The text field to enter the client's date of birth */
+    private JTextField date;
 
-    /** The button panel to search the drug */
+    /** The button panel to search the client */
     private SearchButton searchButton;
 
-    /** The button panel to add a new drug */
+    /** The button panel to add a new customer */
     private JPanel newButton;
 
-    /** The button label to add a new drug */
+    /** The button label to add a new customer */
     private JLabel newButtonLabel;
 
     /**
-     * Ctor of the drug research panel
+     * Ctor of the client research panel
      * @param mainColor The panel's main color
      */
-    public DrugSearchPanel(Color mainColor) {
+    public ClientSearchPanel(Color mainColor) {
 	/* Set the main color then assign it to the panel*/
 	this.mainColor = mainColor;
 	this.setBackground(this.mainColor);
@@ -96,34 +88,34 @@ public class DrugSearchPanel extends JPanel{
 	gbc_nom.fill = GridBagConstraints.BOTH;
 	this.add(this.nom, gbc_nom);
 
-	/* Create the laboratory text field and its constraint */
-	this.laboratory = new JTextField();
-	this.laboratory.setForeground(Color.LIGHT_GRAY);
-	this.laboratory.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-	this.laboratory.setText("laboratory");
-	this.laboratory.setHorizontalAlignment(SwingConstants.CENTER);
-	this.laboratory.setBorder(null);
-	GridBagConstraints gbc_laboratory = new GridBagConstraints();
-	gbc_laboratory.gridwidth = 3;
-	gbc_laboratory.gridx = 1;
-	gbc_laboratory.gridy = 4;
-	gbc_laboratory.fill = GridBagConstraints.BOTH;
-	this.add(this.laboratory, gbc_laboratory);
+	/* Create the first name text field and its constraint */
+	this.firstName = new JTextField();
+	this.firstName.setForeground(Color.LIGHT_GRAY);
+	this.firstName.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+	this.firstName.setText("prenom");
+	this.firstName.setHorizontalAlignment(SwingConstants.CENTER);
+	this.firstName.setBorder(null);
+	GridBagConstraints gbc_firstName = new GridBagConstraints();
+	gbc_firstName.gridwidth = 3;
+	gbc_firstName.gridx = 1;
+	gbc_firstName.gridy = 4;
+	gbc_firstName.fill = GridBagConstraints.BOTH;
+	this.add(this.firstName, gbc_firstName);
 
-	/* Create the type text field and its constraints */
-	this.type = new JTextField();
-	this.type.setForeground(Color.LIGHT_GRAY);
-	this.type.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-	this.type.setHorizontalAlignment(SwingConstants.CENTER);
-	this.type.setText("type");
-	this.type.setBorder(null);
-	GridBagConstraints gbc_type = new GridBagConstraints();
-	gbc_type.gridwidth = 3;
-	gbc_type.gridx = 1;
-	gbc_type.gridy = 6;
-	gbc_type.fill = GridBagConstraints.BOTH;
-	this.add(this.type, gbc_type);
-	this.type.setColumns(10);
+	/* Create the date of birth text field and its constraints */
+	this.date = new JTextField();
+	this.date.setForeground(Color.LIGHT_GRAY);
+	this.date.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+	this.date.setHorizontalAlignment(SwingConstants.CENTER);
+	this.date.setText("jj/mm/aaaa");
+	this.date.setBorder(null);
+	GridBagConstraints gbc_date = new GridBagConstraints();
+	gbc_date.gridwidth = 3;
+	gbc_date.gridx = 1;
+	gbc_date.gridy = 6;
+	gbc_date.fill = GridBagConstraints.BOTH;
+	this.add(this.date, gbc_date);
+	this.date.setColumns(10);
 
 	/* Create the search button and its constraints */
 	this.searchButton = new SearchButton();
@@ -144,7 +136,7 @@ public class DrugSearchPanel extends JPanel{
 	gbc_searchButton.gridy = 8;
 	gbc_searchButton.fill = GridBagConstraints.BOTH;
 	this.add(this.searchButton, gbc_searchButton);
-	
+
 	/* Create the new button and its constraints */
 	this.newButton = new JPanel();
 	this.newButton.setBorder(new MatteBorder(1, 1, 1, 1, (Color.decode("#00004F"))));
@@ -167,7 +159,7 @@ public class DrugSearchPanel extends JPanel{
 	this.newButton.addMouseListener(new MouseAdapter() {
 	    public void mousePressed(MouseEvent e)
 	    {
-		OpenDrugFrame();
+	        OpenCustomerFrame();
 	    }
 	    
 	    public void mouseEntered(MouseEvent e)
@@ -185,10 +177,10 @@ public class DrugSearchPanel extends JPanel{
     /**
      * The new button behavior when clicked
      */
-    public void OpenDrugFrame()
+    public void OpenCustomerFrame()
     {
-	NewDrugFrame DrugFrame = new NewDrugFrame(this.mainColor);
-	DrugFrame.setVisible(true);
+	NewCustomerFrame customerFrame = new NewCustomerFrame(this.mainColor);
+	customerFrame.setVisible(true);
     }
     
     /**
@@ -208,4 +200,6 @@ public class DrugSearchPanel extends JPanel{
 	this.newButton.setBackground(this.mainColor);
         this.newButtonLabel.setForeground(Color.decode("#00004F"));
     }
+    
+
 }

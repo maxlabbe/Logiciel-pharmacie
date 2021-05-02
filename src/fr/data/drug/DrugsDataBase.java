@@ -2,7 +2,11 @@ package fr.data.drug;
 
 import java.util.ArrayList;
 
+import fr.data.Database;
 import fr.data.ISerializable;
+import fr.data.Row;
+import fr.data.event.DatabaseSearchEvent;
+
 import com.google.gson.Gson;
 
 /**
@@ -18,18 +22,14 @@ import com.google.gson.Gson;
  * @author Ophelie Foucault
  * 
  */
-public class DrugsDataBase implements ISerializable {
-
-    /**List of the drugs*/
-    private ArrayList<Drug> drugs;
-    
+public class DrugsDataBase extends Database<Drug> implements ISerializable {
     /**
      * Ctor of the drug data base
      */
     public DrugsDataBase() {
 	if(instance == null)
 	    instance = this;
-	this.drugs = new ArrayList<Drug>();
+	this.rows = new ArrayList<Drug>();
     }
 
     /**
@@ -51,7 +51,7 @@ public class DrugsDataBase implements ISerializable {
      * @param drug The drug to add
      */
     public void addDrug(Drug drug) {
-	this.drugs.add(drug);
+	this.rows.add(drug);
     }
 
     /**
@@ -59,7 +59,7 @@ public class DrugsDataBase implements ISerializable {
      * @param drug The drug to delete
      */
     public void deleteDrug(Drug drug){
-	this.drugs.remove(drug);
+	this.rows.remove(drug);
     }
     
     /**
@@ -68,8 +68,8 @@ public class DrugsDataBase implements ISerializable {
      * @return Drug The drug to get
      */
     public Drug getDrug(int id) {
-	for(int drugIndex = 0; drugIndex < drugs.size(); drugIndex++) {
-	    Drug drug = this.drugs.get(drugIndex);
+	for(int drugIndex = 0; drugIndex < rows.size(); drugIndex++) {
+	    Drug drug = this.rows.get(drugIndex);
 	    if(drug.getId() == id) {
 		return drug;
 	    }
@@ -84,8 +84,8 @@ public class DrugsDataBase implements ISerializable {
      * @return Drug The drug to get
      */
     public Drug getDrug(String name) {
-	for(int drugIndex = 0; drugIndex < drugs.size(); drugIndex++) {
-	    Drug drug = this.drugs.get(drugIndex);
+	for(int drugIndex = 0; drugIndex < rows.size(); drugIndex++) {
+	    Drug drug = this.rows.get(drugIndex);
 	    if(drug.getName().equals(name)) {
 		return drug;
 	    }
@@ -101,8 +101,8 @@ public class DrugsDataBase implements ISerializable {
      */
     public ArrayList<Drug> getDrugsWithType(MedicamentType type){
 	ArrayList<Drug> drugsWithType = new ArrayList<Drug>();
-	for(int drugIndex = 0; drugIndex < drugs.size(); drugIndex++) {
-	    Drug drug = drugs.get(drugIndex);
+	for(int drugIndex = 0; drugIndex < rows.size(); drugIndex++) {
+	    Drug drug = rows.get(drugIndex);
 	    if(drug.getType() == type) {
 		drugsWithType.add(drug);
 	    }
@@ -118,8 +118,8 @@ public class DrugsDataBase implements ISerializable {
      */
     public ArrayList<Drug> getDrugsFromLab(String lab){
 	ArrayList<Drug> drugsFromLab = new ArrayList<Drug>();
-	for(int drugIndex = 0; drugIndex < drugs.size(); drugIndex++) {
-	    Drug drug = drugs.get(drugIndex);
+	for(int drugIndex = 0; drugIndex < rows.size(); drugIndex++) {
+	    Drug drug = rows.get(drugIndex);
 	    if(drug.getLaboratory().equals(lab)) {
 		drugsFromLab.add(drug);
 	    }
@@ -147,6 +147,17 @@ public class DrugsDataBase implements ISerializable {
 
     public void Deserialize(String json) {
 	DrugsDataBase database = new Gson().fromJson(json, this.getClass());
-	this.drugs = new ArrayList<Drug>(database.drugs);
+	this.rows = new ArrayList<Drug>(database.rows);
+    }
+
+    @Override
+    public void SearchRows(DatabaseSearchEvent event) {
+	ArrayList<Drug> resultRow = new ArrayList<Drug>(rows);
+	resultRow.removeIf(drug -> !(drug.getName().contains(event.searchData[0])
+				&& drug.getLaboratory().contains(event.searchData[1])
+				&& drug.getType().toString().contains(event.searchData[2])));
+	event.resultRow = new Row[resultRow.size()];
+	event.resultRow = resultRow.toArray(event.resultRow);
+	OnSearch(event);
     }
 }

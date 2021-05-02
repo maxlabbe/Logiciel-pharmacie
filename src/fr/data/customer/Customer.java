@@ -227,11 +227,12 @@ public class Customer extends Row{
 
     @Override
     public String[] GetRowValues() {
-	String[] values = new String[3];
+	String[] values = new String[4];
 	values[0] = this.getLastName();
 	values[1] = this.getFirstName();
 	int[] date = this.getBirthday();
 	values[2] = date[0] + "/" + date[1] + "/" + date[2];
+	values[3] = "" + this.getInsuranceNumber();
 	return values;
     }
 }

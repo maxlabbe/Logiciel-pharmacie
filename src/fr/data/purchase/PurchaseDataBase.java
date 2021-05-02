@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import fr.data.customer.Customer;
 import fr.data.drug.Drug;
 import fr.data.drug.DrugsDataBase;
+import fr.data.event.DatabaseSearchEvent;
+import fr.data.Database;
 import fr.data.ISerializable;
+import fr.data.Row;
+
 import com.google.gson.Gson;
 
-public class PurchaseDataBase implements ISerializable {
-    
-    /** List of purchases*/
-    private ArrayList<Purchase> purchases;
+public class PurchaseDataBase extends Database<Purchase> implements ISerializable {
     
     /**
      * Ctor of the purchase data base
@@ -19,7 +20,7 @@ public class PurchaseDataBase implements ISerializable {
     public PurchaseDataBase() {
 	if(instance == null)
 	    instance = this;
-	this.purchases = new ArrayList<Purchase>();
+	this.rows = new ArrayList<Purchase>();
     }
 
     /**
@@ -42,7 +43,7 @@ public class PurchaseDataBase implements ISerializable {
      */
     public void addPurchase(Purchase purchase){
 	DrugsDataBase drugDB = DrugsDataBase.Instance();
-	this.purchases.add(purchase);
+	this.rows.add(purchase);
 	for(Drug drug : purchase.getMedicines()) {
 	    Drug drugRef = drugDB.getDrug(drug.getId());
 	    int quantity = drugRef.getQuantity();
@@ -55,12 +56,12 @@ public class PurchaseDataBase implements ISerializable {
      * @param purchase The purchase to delete
      */
     public void deletePurchase(Purchase purchase) {
-	this.purchases.remove(purchase);
+	this.rows.remove(purchase);
     }
     
     public Purchase getPurchase(int id) {
-	for(int purchaseIndex = 0; purchaseIndex < purchases.size(); purchaseIndex++) {
-	    Purchase purchase = this.purchases.get(purchaseIndex);
+	for(int purchaseIndex = 0; purchaseIndex < rows.size(); purchaseIndex++) {
+	    Purchase purchase = this.rows.get(purchaseIndex);
 	    if(purchase.getId() == id) {
 		return purchase;
 	    }
@@ -78,8 +79,8 @@ public class PurchaseDataBase implements ISerializable {
      */
     public ArrayList<Purchase> getPurchases(int day, int month, int year){
 	ArrayList<Purchase> purchasesOnDate = new ArrayList<Purchase>();
-	for(int purchaseIndex = 0; purchaseIndex < purchases.size(); purchaseIndex++) {
-	    Purchase purchase = this.purchases.get(purchaseIndex);
+	for(int purchaseIndex = 0; purchaseIndex < rows.size(); purchaseIndex++) {
+	    Purchase purchase = this.rows.get(purchaseIndex);
 	    if(purchase.getDate()[0] == day && purchase.getDate()[1] == month && purchase.getDate()[2] == year) {
 		purchasesOnDate.add(purchase);
 	    }
@@ -97,8 +98,8 @@ public class PurchaseDataBase implements ISerializable {
     public ArrayList<Purchase> getPurchases(Drug drug) {
 	ArrayList<Purchase> purchasesWithDrug = new ArrayList<Purchase>();
 	
-	for(int purchaseIndex = 0; purchaseIndex < purchases.size(); purchaseIndex++) {
-	    Purchase purchase = this.purchases.get(purchaseIndex);
+	for(int purchaseIndex = 0; purchaseIndex < rows.size(); purchaseIndex++) {
+	    Purchase purchase = this.rows.get(purchaseIndex);
 	    Drug[] drugs = purchase.getMedicines();
 	    for (Drug drug2 : drugs) {
 		if(drug2 == drug) {
@@ -118,8 +119,8 @@ public class PurchaseDataBase implements ISerializable {
     public ArrayList<Purchase> getPurchases(Customer customer) {
 	ArrayList<Purchase> purchasesByCustomer = new ArrayList<Purchase>();
 	
-	for(int purchaseIndex = 0; purchaseIndex < purchases.size(); purchaseIndex++) {
-	    Purchase purchase = this.purchases.get(purchaseIndex);
+	for(int purchaseIndex = 0; purchaseIndex < rows.size(); purchaseIndex++) {
+	    Purchase purchase = this.rows.get(purchaseIndex);
 	    if(purchase.getCustomer() == customer) {
 		purchasesByCustomer.add(purchase);
 	    }
@@ -134,6 +135,20 @@ public class PurchaseDataBase implements ISerializable {
 
     public void Deserialize(String json) {
 	PurchaseDataBase database = new Gson().fromJson(json, this.getClass());
-	this.purchases = new ArrayList<Purchase>(database.purchases);
+	this.rows = new ArrayList<Purchase>(database.rows);
+    }
+
+    @Override
+    public void SearchRows(DatabaseSearchEvent event) {
+	//int[] birthDay = Arrays.stream(event.searchData[2].split("/")).mapToInt(Integer::parseInt).toArray();
+	ArrayList<Purchase> resultRow = new ArrayList<Purchase>(rows);
+	resultRow.removeIf(purchase -> !(("" + purchase.getId()).contains(event.searchData[0])
+				&& ("" + purchase.getCustomer().getId()).contains(event.searchData[1])
+				/*&& purchase.getDate()[0] == birthDay[0]
+				&& purchase.getDate()[1] == birthDay[1]
+				&& purchase.getDate()[2] == birthDay[2]*/));
+	event.resultRow = new Row[resultRow.size()];
+	event.resultRow = resultRow.toArray(event.resultRow);
+	OnSearch(event);
     }
 }

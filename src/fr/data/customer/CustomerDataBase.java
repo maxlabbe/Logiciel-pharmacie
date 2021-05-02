@@ -6,8 +6,10 @@ import com.google.gson.Gson;
 
 import fr.data.Database;
 import fr.data.ISerializable;
+import fr.data.Row;
 import fr.data.event.Action;
 import fr.data.event.DatabaseEvent;
+import fr.data.event.DatabaseSearchEvent;
 
 /**
  * This class is the customer data base class. Its purpose is to create a data base to store the drug store's customers.
@@ -22,9 +24,6 @@ import fr.data.event.DatabaseEvent;
  * 
  */
 public class CustomerDataBase extends Database<Customer> implements ISerializable{
-    /** List of the customers*/
-    //private ArrayList<Customer> customers;
-    
     /**
      * Ctor of the customers data base
      */
@@ -124,5 +123,19 @@ public class CustomerDataBase extends Database<Customer> implements ISerializabl
     public void Deserialize(String json) {
 	CustomerDataBase newDB = new Gson().fromJson(json, this.getClass());
 	this.rows = new ArrayList<Customer>(newDB.rows);
+    }
+
+    @Override
+    public void SearchRows(DatabaseSearchEvent event) {	
+	//int[] birthDay = Arrays.stream(event.searchData[2].split("/")).mapToInt(Integer::parseInt).toArray();
+	ArrayList<Customer> resultRow = new ArrayList<Customer>(rows);
+	resultRow.removeIf(customer -> !(customer.getFirstName().contains(event.searchData[0])
+				&& customer.getLastName().contains(event.searchData[1])
+				/*&& customer.getBirthday()[0] == birthDay[0]
+				&& customer.getBirthday()[1] == birthDay[1]
+				&& customer.getBirthday()[2] == birthDay[2]*/));
+	event.resultRow = new Row[resultRow.size()];
+	event.resultRow = resultRow.toArray(event.resultRow);
+	OnSearch(event);
     }
 }
