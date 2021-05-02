@@ -29,7 +29,7 @@ public class SearchButton extends JPanel{
     }
     
     /**
-     * The button's graphic behavior when it's activate.
+     * The button's graphic behavior when it's inactivate.
      */
     public void mouseExit() {
 	this.setBackground(Color.decode("#59B3FF"));

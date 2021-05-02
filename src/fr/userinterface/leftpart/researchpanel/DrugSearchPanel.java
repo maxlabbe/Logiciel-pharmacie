@@ -14,6 +14,20 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
+import fr.userinterface.newframe.NewDrugFrame;
+import fr.userinterface.newframe.NewPurchaseFrame;
+
+/**
+ * This class is the drug advance research panel of the user interface. 
+ * It contains the fields to search a drug and a button to add a new one
+ * 
+ * @version 2.0 26 Apr 2021
+ * 
+ * @author Max Labbe
+ * @author Mathieu Way
+ * @author Ophelie Foucault
+ * 
+ */
 public class DrugSearchPanel extends JPanel{
     /** The panel main color */
     private Color mainColor;
@@ -32,9 +46,6 @@ public class DrugSearchPanel extends JPanel{
 
     /** The button panel to search the drug */
     private SearchButton searchButton;
-
-    /** The button label to search the drug */
-    private JLabel searchButtonLabel;
 
     /** The button panel to add a new drug */
     private JPanel newButton;
@@ -152,10 +163,49 @@ public class DrugSearchPanel extends JPanel{
 	this.newButtonLabel.setFont(new Font("Segoe UI", Font.PLAIN, 25));
 	this.newButtonLabel.setHorizontalAlignment(SwingConstants.CENTER);
 	this.newButton.add(this.newButtonLabel);
+	
+	this.newButton.addMouseListener(new MouseAdapter() {
+	    public void mousePressed(MouseEvent e)
+	    {
+		OpenDrugFrame();
+	    }
+	    
+	    public void mouseEntered(MouseEvent e)
+	    {
+	        newButtonMouseEnter();
+	    }
+	    
+	    public void mouseExited(MouseEvent e)
+	    {
+	        newButtonMouseExit();
+	    }
+	});
     }
-
-    public String[] getResearch() {
-	String[] researches = new String[] {this.nom.getText(), this.laboratory.getText(), this.type.getText()};
-	return researches;
+    
+    /**
+     * The new button behavior when clicked
+     */
+    public void OpenDrugFrame()
+    {
+	NewDrugFrame DrugFrame = new NewDrugFrame(this.mainColor);
+	DrugFrame.setVisible(true);
+    }
+    
+    /**
+     * The new button behavior when entered
+     */
+    public void newButtonMouseEnter()
+    {
+	this.newButton.setBackground(Color.decode("#B0F2B6"));
+        this.newButtonLabel.setForeground(this.mainColor);
+    }
+    
+    /**
+     * The new button behavior when exit
+     */
+    public void newButtonMouseExit()
+    {
+	this.newButton.setBackground(this.mainColor);
+        this.newButtonLabel.setForeground(Color.decode("#00004F"));
     }
 }

@@ -7,6 +7,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 
+import fr.userinterface.newframe.NewCustomerFrame;
+
 /**
  * This class is the client advance research panel of the user interface. 
  * It contains the fields to search a client and a button to add a new one
@@ -36,9 +38,6 @@ public class ClientSearchPanel extends JPanel{
 
     /** The button panel to search the client */
     private SearchButton searchButton;
-
-    /** The button label to search the client */
-    private JLabel searchButtonLabel;
 
     /** The button panel to add a new customer */
     private JPanel newButton;
@@ -156,11 +155,51 @@ public class ClientSearchPanel extends JPanel{
 	this.newButtonLabel.setFont(new Font("Segoe UI", Font.PLAIN, 25));
 	this.newButtonLabel.setHorizontalAlignment(SwingConstants.CENTER);
 	this.newButton.add(this.newButtonLabel);
+	
+	this.newButton.addMouseListener(new MouseAdapter() {
+	    public void mousePressed(MouseEvent e)
+	    {
+	        OpenCustomerFrame();
+	    }
+	    
+	    public void mouseEntered(MouseEvent e)
+	    {
+	        newButtonMouseEnter();
+	    }
+	    
+	    public void mouseExited(MouseEvent e)
+	    {
+	        newButtonMouseExit();
+	    }
+	});
     }
     
-    public String[] getResearch() {
-	String[] researches = new String[] {this.nom.getText(), this.firstName.getText(), this.date.getText()};
-	return researches;
+    /**
+     * The new button behavior when clicked
+     */
+    public void OpenCustomerFrame()
+    {
+	NewCustomerFrame customerFrame = new NewCustomerFrame(this.mainColor);
+	customerFrame.setVisible(true);
     }
+    
+    /**
+     * The new button behavior when entered
+     */
+    public void newButtonMouseEnter()
+    {
+	this.newButton.setBackground(Color.decode("#B0F2B6"));
+        this.newButtonLabel.setForeground(this.mainColor);
+    }
+    
+    /**
+     * The new button behavior when exit
+     */
+    public void newButtonMouseExit()
+    {
+	this.newButton.setBackground(this.mainColor);
+        this.newButtonLabel.setForeground(Color.decode("#00004F"));
+    }
+    
 
 }
