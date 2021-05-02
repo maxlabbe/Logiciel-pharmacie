@@ -6,14 +6,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 
 import fr.data.customer.*;
 import fr.data.drug.*;
 import fr.data.purchase.*;
 import fr.data.purchase.PurchaseDataBase;
-import fr.userinterface.database.Header;
 import fr.userinterface.database.Table;
 
 /**

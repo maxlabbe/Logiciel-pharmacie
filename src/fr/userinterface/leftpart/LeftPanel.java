@@ -5,10 +5,13 @@ import java.awt.*;
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 
+import fr.data.customer.*;
+import fr.data.drug.*;
+import fr.data.purchase.*;
 import fr.userinterface.event.MenuSelectedEvent;
 import fr.userinterface.event.MenuSelectedListener;
 import fr.userinterface.leftpart.menu.MenuPanel;
-import fr.userinterface.leftpart.researchpanel.*;
+import fr.userinterface.leftpart.searchpanel.*;
 import fr.userinterface.rightpart.RightPanel;
 
 
@@ -32,13 +35,13 @@ public class LeftPanel extends JPanel{
     private MenuPanel menuPanel;
     
     /**The research panel*/
-    private ClientSearchPanel customerSearchPanel;
+    private SearchPanel<Customer> customerSearchPanel;
     
     /**The research panel*/
-    private DrugSearchPanel drugsSearchPanel;
+    private SearchPanel<Drug> drugsSearchPanel;
     
     /**The research panel*/
-    private PurchaseSearchPanel purchasesSearchPanel;
+    private SearchPanel<Purchase> purchasesSearchPanel;
     
     /**The visual separator between the menu panel and the research panel*/
     private JPanel separator;
@@ -67,13 +70,16 @@ public class LeftPanel extends JPanel{
 	/* Create the search panel and its constraints */
 	this.searchCard = new JPanel(new CardLayout(0,0));
 	
-	this.customerSearchPanel = new ClientSearchPanel(this.mainColor);
+	String[] customerInputfieldsLabel = {"nom", "prenom", "jj/mm/aaaa"};
+	this.customerSearchPanel = new SearchPanel<Customer>(CustomerDataBase.Instance(), customerInputfieldsLabel, this.mainColor);
 	this.customerSearchPanel.setName("customerSearchPanel");
-	
-	this.drugsSearchPanel = new DrugSearchPanel(this.mainColor);
+
+	String[] drugInputfieldsLabel = {"nom", "laboratory", "type"};
+	this.drugsSearchPanel = new SearchPanel<Drug>(DrugsDataBase.Instance(), drugInputfieldsLabel, this.mainColor);
 	this.drugsSearchPanel.setName("drugsSearchPanel");
-	
-	this.purchasesSearchPanel = new PurchaseSearchPanel(this.mainColor);
+
+	String[] purchaseInputfieldsLabel = {"purchase id", "customer id", "jj/mm/aaaa"};
+	this.purchasesSearchPanel = new SearchPanel<Purchase>(PurchaseDataBase.Instance(), purchaseInputfieldsLabel, this.mainColor);
 	this.purchasesSearchPanel.setName("purchasesSearchPanel");
 	
 	GridBagConstraints gbcSearchPanel = new GridBagConstraints();

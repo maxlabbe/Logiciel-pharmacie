@@ -1,4 +1,4 @@
-package fr.userinterface.leftpart.researchpanel;
+package fr.userinterface.leftpart.searchpanel;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;

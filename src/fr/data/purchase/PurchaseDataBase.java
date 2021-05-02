@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import fr.data.customer.Customer;
 import fr.data.drug.Drug;
 import fr.data.drug.DrugsDataBase;
+import fr.data.event.DatabaseSearchEvent;
 import fr.data.Database;
 import fr.data.ISerializable;
+import fr.data.Row;
+
 import com.google.gson.Gson;
 
 public class PurchaseDataBase extends Database<Purchase> implements ISerializable {
@@ -133,5 +136,19 @@ public class PurchaseDataBase extends Database<Purchase> implements ISerializabl
     public void Deserialize(String json) {
 	PurchaseDataBase database = new Gson().fromJson(json, this.getClass());
 	this.rows = new ArrayList<Purchase>(database.rows);
+    }
+
+    @Override
+    public void SearchRows(DatabaseSearchEvent event) {
+	//int[] birthDay = Arrays.stream(event.searchData[2].split("/")).mapToInt(Integer::parseInt).toArray();
+	ArrayList<Purchase> resultRow = new ArrayList<Purchase>(rows);
+	resultRow.removeIf(purchase -> !(("" + purchase.getId()).contains(event.searchData[0])
+				&& ("" + purchase.getCustomer().getId()).contains(event.searchData[1])
+				/*&& purchase.getDate()[0] == birthDay[0]
+				&& purchase.getDate()[1] == birthDay[1]
+				&& purchase.getDate()[2] == birthDay[2]*/));
+	event.resultRow = new Row[resultRow.size()];
+	event.resultRow = resultRow.toArray(event.resultRow);
+	OnSearch(event);
     }
 }

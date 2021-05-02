@@ -15,12 +15,13 @@ import fr.data.Database;
 import fr.data.Row;
 import fr.data.event.DatabaseEvent;
 import fr.data.event.DatabaseListener;
+import fr.data.event.DatabaseSearchEvent;
 
 public class Table<T> extends JPanel {
     
     private Database<T> database;
     private Header header;
-    private TableRow[] rows = new TableRow[0];
+    private TableRow[] tableRows = new TableRow[0];
     
 
 
@@ -64,21 +65,45 @@ public class Table<T> extends JPanel {
 	    public void OnDatabaseUpdate(DatabaseEvent<T> event) {
 		LoadRows();
 	    }
+	    @Override
+	    public void  OnDatabaseSearch(DatabaseSearchEvent event) {
+		boolean flag = true;
+		int i = 0;
+		while(flag && i < event.searchData.length) {
+		    if(event.searchData[i] != "") {
+			flag = false;
+		    }
+		    i++;
+		}
+		if(flag)
+		    LoadRows();
+		else
+		    LoadRows(event.resultRow);
+	    }
 	});
+	
 	LoadRows();
     }
     
-    public void LoadRows() {
-	for(int i = 0; i < rows.length; i++) {
-	    rowsPanel.remove(rows[i]);
+    private void DeleteRows() {
+	for(int i = 0; i < tableRows.length; i++) {
+	    rowsPanel.remove(tableRows[i]);
 	}
+    }
+    
+    private void LoadRows() {
 	ArrayList<Row> rowsValues = (ArrayList<Row>) database.GetRows();
-	rows = new TableRow[rowsValues.size()];
-	for(int i = 0; i < rowsValues.size(); i++) {
-	    rows[i] = new TableRow(rowsValues.get(i).GetRowValues());
-	    rowsPanel.add(rows[i]);
+	Row[] rows = new Row[rowsValues.size()];
+	LoadRows(rowsValues.toArray(rows));
+    }
 
-	    rowsPanel.add(new TableRow(rowsValues.get(i).GetRowValues()));
+    private void LoadRows(Row[] rows) {
+	DeleteRows();
+	tableRows = new TableRow[rows.length];
+	for(int i = 0; i < rows.length; i++) {
+	    tableRows[i] = new TableRow(rows[i].GetRowValues());
+	    rowsPanel.add(tableRows[i]);
 	}
+	this.rowsPanel.revalidate();
     }
 }

@@ -1,4 +1,4 @@
-package fr.userinterface.leftpart.researchpanel;
+package fr.userinterface.leftpart.searchpanel;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
-public class DrugSearchPanel extends JPanel{
+public class PurchaseSearchPanel extends JPanel{
     /** The panel main color */
     private Color mainColor;
 
@@ -22,13 +22,13 @@ public class DrugSearchPanel extends JPanel{
     private JLabel searchTitle;
 
     /** The text field to enter the drug's name */ 
-    private JTextField nom;
+    private JTextField drug;
 
-    /** The text field to enter the laboratory's name that made the drug */
-    private JTextField laboratory;
+    /** The text field to enter the drug's quantity bought */
+    private JTextField quantity;
 
-    /** The text field to enter the drug's type */
-    private JTextField type;
+    /** The text field to enter the purchase's date */
+    private JTextField date;
 
     /** The button panel to search the drug */
     private SearchButton searchButton;
@@ -46,7 +46,7 @@ public class DrugSearchPanel extends JPanel{
      * Ctor of the drug research panel
      * @param mainColor The panel's main color
      */
-    public DrugSearchPanel(Color mainColor) {
+    public PurchaseSearchPanel(Color mainColor) {
 	/* Set the main color then assign it to the panel*/
 	this.mainColor = mainColor;
 	this.setBackground(this.mainColor);
@@ -71,48 +71,48 @@ public class DrugSearchPanel extends JPanel{
 	gbc_searchTitle.fill = GridBagConstraints.BOTH;
 	this.add(this.searchTitle, gbc_searchTitle);
 
-	/* Create the name text field and its constraints */
-	this.nom = new JTextField();
-	this.nom.setForeground(Color.LIGHT_GRAY);
-	this.nom.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-	this.nom.setText("nom");
-	this.nom.setHorizontalAlignment(SwingConstants.CENTER);
-	this.nom.setBorder(null);
-	GridBagConstraints gbc_nom = new GridBagConstraints();
-	gbc_nom.gridwidth = 3;
-	gbc_nom.gridx = 1;
-	gbc_nom.gridy = 2;
-	gbc_nom.fill = GridBagConstraints.BOTH;
-	this.add(this.nom, gbc_nom);
+	/* Create the drug text field and its constraints */
+	this.drug = new JTextField();
+	this.drug.setForeground(Color.LIGHT_GRAY);
+	this.drug.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+	this.drug.setText("medicament");
+	this.drug.setHorizontalAlignment(SwingConstants.CENTER);
+	this.drug.setBorder(null);
+	GridBagConstraints gbc_drug = new GridBagConstraints();
+	gbc_drug.gridwidth = 3;
+	gbc_drug.gridx = 1;
+	gbc_drug.gridy = 2;
+	gbc_drug.fill = GridBagConstraints.BOTH;
+	this.add(this.drug, gbc_drug);
 
-	/* Create the laboratory text field and its constraint */
-	this.laboratory = new JTextField();
-	this.laboratory.setForeground(Color.LIGHT_GRAY);
-	this.laboratory.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-	this.laboratory.setText("laboratory");
-	this.laboratory.setHorizontalAlignment(SwingConstants.CENTER);
-	this.laboratory.setBorder(null);
-	GridBagConstraints gbc_laboratory = new GridBagConstraints();
-	gbc_laboratory.gridwidth = 3;
-	gbc_laboratory.gridx = 1;
-	gbc_laboratory.gridy = 4;
-	gbc_laboratory.fill = GridBagConstraints.BOTH;
-	this.add(this.laboratory, gbc_laboratory);
+	/* Create the quantity text field and its constraint */
+	this.quantity = new JTextField();
+	this.quantity.setForeground(Color.LIGHT_GRAY);
+	this.quantity.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+	this.quantity.setText("quantité");
+	this.quantity.setHorizontalAlignment(SwingConstants.CENTER);
+	this.quantity.setBorder(null);
+	GridBagConstraints gbc_quantity = new GridBagConstraints();
+	gbc_quantity.gridwidth = 3;
+	gbc_quantity.gridx = 1;
+	gbc_quantity.gridy = 4;
+	gbc_quantity.fill = GridBagConstraints.BOTH;
+	this.add(this.quantity, gbc_quantity);
 
-	/* Create the type text field and its constraints */
-	this.type = new JTextField();
-	this.type.setForeground(Color.LIGHT_GRAY);
-	this.type.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-	this.type.setHorizontalAlignment(SwingConstants.CENTER);
-	this.type.setText("type");
-	this.type.setBorder(null);
-	GridBagConstraints gbc_type = new GridBagConstraints();
-	gbc_type.gridwidth = 3;
-	gbc_type.gridx = 1;
-	gbc_type.gridy = 6;
-	gbc_type.fill = GridBagConstraints.BOTH;
-	this.add(this.type, gbc_type);
-	this.type.setColumns(10);
+	/* Create the date text field and its constraints */
+	this.date = new JTextField();
+	this.date.setForeground(Color.LIGHT_GRAY);
+	this.date.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+	this.date.setHorizontalAlignment(SwingConstants.CENTER);
+	this.date.setText("jj/mm/aaaa");
+	this.date.setBorder(null);
+	GridBagConstraints gbc_date = new GridBagConstraints();
+	gbc_date.gridwidth = 3;
+	gbc_date.gridx = 1;
+	gbc_date.gridy = 6;
+	gbc_date.fill = GridBagConstraints.BOTH;
+	this.add(this.date, gbc_date);
+	this.date.setColumns(10);
 
 	/* Create the search button and its constraints */
 	this.searchButton = new SearchButton();
@@ -133,7 +133,7 @@ public class DrugSearchPanel extends JPanel{
 	gbc_searchButton.gridy = 8;
 	gbc_searchButton.fill = GridBagConstraints.BOTH;
 	this.add(this.searchButton, gbc_searchButton);
-	
+
 	/* Create the new button and its constraints */
 	this.newButton = new JPanel();
 	this.newButton.setBorder(new MatteBorder(1, 1, 1, 1, (Color.decode("#00004F"))));
@@ -153,9 +153,9 @@ public class DrugSearchPanel extends JPanel{
 	this.newButtonLabel.setHorizontalAlignment(SwingConstants.CENTER);
 	this.newButton.add(this.newButtonLabel);
     }
-
+    
     public String[] getResearch() {
-	String[] researches = new String[] {this.nom.getText(), this.laboratory.getText(), this.type.getText()};
+	String[] researches = new String[] {this.drug.getText(), this.quantity.getText(), this.date.getText()};
 	return researches;
     }
 }

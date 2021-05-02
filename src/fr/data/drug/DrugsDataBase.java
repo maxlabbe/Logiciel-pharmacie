@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import fr.data.Database;
 import fr.data.ISerializable;
+import fr.data.Row;
+import fr.data.event.DatabaseSearchEvent;
 
 import com.google.gson.Gson;
 
@@ -146,5 +148,16 @@ public class DrugsDataBase extends Database<Drug> implements ISerializable {
     public void Deserialize(String json) {
 	DrugsDataBase database = new Gson().fromJson(json, this.getClass());
 	this.rows = new ArrayList<Drug>(database.rows);
+    }
+
+    @Override
+    public void SearchRows(DatabaseSearchEvent event) {
+	ArrayList<Drug> resultRow = new ArrayList<Drug>(rows);
+	resultRow.removeIf(drug -> !(drug.getName().contains(event.searchData[0])
+				&& drug.getLaboratory().contains(event.searchData[1])
+				&& drug.getType().toString().contains(event.searchData[2])));
+	event.resultRow = new Row[resultRow.size()];
+	event.resultRow = resultRow.toArray(event.resultRow);
+	OnSearch(event);
     }
 }
