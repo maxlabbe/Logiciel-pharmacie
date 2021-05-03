@@ -16,6 +16,9 @@ import fr.data.Row;
 import fr.data.event.DatabaseEvent;
 import fr.data.event.DatabaseListener;
 import fr.data.event.DatabaseSearchEvent;
+import java.awt.Component;
+import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
 
 public class Table<T> extends JPanel {
     
@@ -56,8 +59,9 @@ public class Table<T> extends JPanel {
 	this.add(scrollpane, scrollPaneConstraint);
 
 	this.rowsPanel = new JPanel();
-	rowsPanel.setLayout(new GridLayout(0, 1, 0, 0));
+	rowsPanel.setAlignmentY(Component.TOP_ALIGNMENT);
 	scrollpane.setViewportView(rowsPanel);
+	rowsPanel.setLayout(new BoxLayout(rowsPanel, BoxLayout.Y_AXIS));
 
 	this.database = database;
 	database.AddDatabaseListener(new DatabaseListener<T>() {
@@ -103,6 +107,9 @@ public class Table<T> extends JPanel {
 	tableRows = new TableRow[rows.length];
 	for(int i = 0; i < rows.length; i++) {
 	    tableRows[i] = new TableRow(rows[i].GetRowValues());
+	    if(i % 2 == 0) {
+		tableRows[i].setBackground(Color.decode("#DCDCDC"));
+	    }
 	    rowsPanel.add(tableRows[i]);
 	}
 	this.rowsPanel.revalidate();
