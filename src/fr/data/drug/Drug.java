@@ -1,5 +1,7 @@
 package fr.data.drug;
 
+import fr.data.Row;
+
 /**
  * This class is the medicine class. Its purpose is to create, store and modify drugs's data.
  * Each drugs have an id, a name, the name of the laboratory that made it, and the quantity int he store.
@@ -12,7 +14,7 @@ package fr.data.drug;
  * @author Ophelie Foucault
  * 
  */
-public class Drug {
+public class Drug extends Row {
 
     /**Id of the drug*/
     private int id;
@@ -41,12 +43,21 @@ public class Drug {
      * @param price The price of one quantity of the drug
      * @param quantity the quantity of the drug in the drug store's stocks
      */
-    public Drug(int id, MedicamentType type, String name, String laboratory, double price, int quantity) {
-	this.id = id;
+    public Drug(MedicamentType type, String name, String laboratory, double price, int quantity) {
+	//this.id = id;
 	this.type = type;
 	this.name = name;
 	this.laboratory = laboratory;
 	this.price = price;
+	this.quantity = quantity;
+    }
+
+    public Drug(Drug drug, int quantity) {
+	this.id = drug.getId();
+	this.type = drug.getType();
+	this.name = drug.getName();
+	this.laboratory = drug.getLaboratory();
+	this.price = drug.getPrice();
 	this.quantity = quantity;
     }
 
@@ -144,5 +155,20 @@ public class Drug {
      */
     public void setQuantity(int quantity) {
 	this.quantity = quantity;
+    }
+
+    @Override
+    public String[] GetRowValues() {
+	String[] values = new String[4];
+	values[0] = this.getName();
+	values[1] = "" + this.getQuantity();
+	values[2] = this.getLaboratory();
+	values[3] = this.getType().toString();
+	return values;
+    }
+    
+    @Override
+    public String toString() {
+	return this.getName();
     }
 }

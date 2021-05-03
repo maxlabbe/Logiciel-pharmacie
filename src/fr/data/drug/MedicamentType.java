@@ -10,7 +10,7 @@ package fr.data.drug;
  * @author Ophelie Foucault
  * 
  */
-enum MedicamentType{
+public enum MedicamentType{
     ANALGÉSIQUES,
     ANTALGIQUES,
     ANTISPASMODIQUES,

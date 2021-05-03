@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import fr.data.Database;
 import fr.data.ISerializable;
 import fr.data.Row;
+import fr.data.customer.Customer;
+import fr.data.event.Action;
+import fr.data.event.DatabaseEvent;
 import fr.data.event.DatabaseSearchEvent;
 
 import com.google.gson.Gson;
@@ -51,7 +54,9 @@ public class DrugsDataBase extends Database<Drug> implements ISerializable {
      * @param drug The drug to add
      */
     public void addDrug(Drug drug) {
+	drug.setId(rows.size());
 	this.rows.add(drug);
+	OnRowAdded(new DatabaseEvent<Drug>(this, Drug.class, drug, Action.ADD));
     }
 
     /**
@@ -60,6 +65,7 @@ public class DrugsDataBase extends Database<Drug> implements ISerializable {
      */
     public void deleteDrug(Drug drug){
 	this.rows.remove(drug);
+	OnRowAdded(new DatabaseEvent<Drug>(this, Drug.class, drug, Action.REMOVE));
     }
     
     /**

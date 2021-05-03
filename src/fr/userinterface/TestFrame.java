@@ -3,14 +3,20 @@ package fr.userinterface;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import fr.data.FileManager;
+import fr.data.customer.CustomerDataBase;
+import fr.data.drug.DrugsDataBase;
+import fr.data.purchase.PurchaseDataBase;
 import fr.userinterface.leftpart.LeftPanel;
 import fr.userinterface.rightpart.RightPanel;
 
 import java.awt.Color;
 
 import java.awt.GridBagLayout;
+import java.awt.event.WindowAdapter;
 import java.awt.GridBagConstraints;
 
 public class TestFrame extends JFrame {
@@ -18,24 +24,6 @@ public class TestFrame extends JFrame {
     private JPanel contentPane;
     private RightPanel rightPanel;
     private LeftPanel leftPanel;
-
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-	EventQueue.invokeLater(new Runnable() {
-	    public void run() {
-		try {
-		    TestFrame frame = new TestFrame(Color.decode("#096A09"));
-		    //69C3FF
-		    //B0F2B6
-		    frame.setVisible(true);
-		} catch (Exception e) {
-		    e.printStackTrace();
-		}
-	    }
-	});
-    }
 
     /**
      * Create the frame.

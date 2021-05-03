@@ -8,6 +8,9 @@ import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 
+import fr.data.customer.Customer;
+import fr.data.customer.CustomerDataBase;
+
 import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -294,6 +297,11 @@ public class NewCustomerFrame extends JFrame {
 	    public void mouseExited(MouseEvent e)
 	    {
 		mouseExit();
+	    }
+	    public void mouseClicked(MouseEvent e) {
+		Customer customer = new Customer(nameField.getText(), firstNameField.getText(), Integer.parseInt(dayField.getText()), Integer.parseInt(monthField.getText()), Integer.parseInt(yearField.getText()));
+		customer.setInsuranceNumber(Integer.parseInt(insuranceNumberField.getText()));
+		CustomerDataBase.Instance().addCustomer(customer);
 	    }
 	});
     }

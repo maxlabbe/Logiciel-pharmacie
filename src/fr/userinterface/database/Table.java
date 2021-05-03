@@ -63,6 +63,7 @@ public class Table<T> extends JPanel {
 	database.AddDatabaseListener(new DatabaseListener<T>() {
 	    @Override
 	    public void OnDatabaseUpdate(DatabaseEvent<T> event) {
+		System.out.println("database update");
 		LoadRows();
 	    }
 	    @Override

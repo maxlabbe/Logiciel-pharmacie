@@ -235,4 +235,9 @@ public class Customer extends Row{
 	values[3] = "" + this.getInsuranceNumber();
 	return values;
     }
+    
+    @Override
+    public String toString() {
+	return this.getLastName() + " " + this.getFirstName() + " (id: " + this.getId() + ")";
+    }
 }

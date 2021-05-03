@@ -8,12 +8,20 @@ import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 
+import fr.data.customer.Customer;
+import fr.data.customer.CustomerDataBase;
+import fr.data.drug.Drug;
+import fr.data.drug.DrugsDataBase;
+import fr.data.drug.MedicamentType;
+import fr.data.purchase.*;
+
 import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.awt.Color;
 import java.awt.Container;
 
@@ -21,6 +29,9 @@ import java.awt.Container;
 import java.awt.Font;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
+import javax.swing.JComboBox;
+import javax.swing.JList;
+import javax.swing.JButton;
 
 /**
  * This class is the new purchase frame of the user interface. 
@@ -46,12 +57,6 @@ public class NewPurchaseFrame extends JFrame {
 
     /**The title*/
     private JLabel titleLabel;
-
-    /**The panel that contain the amount field*/
-    private Container amountPanel;
-
-    /**The amount field*/
-    private JTextField amountField;
     
     /**The panel that contain the date of purchase fields*/
     private JPanel datePanel;
@@ -74,17 +79,25 @@ public class NewPurchaseFrame extends JFrame {
     /**The prescription label*/
     private JLabel prescriptionLabel;
     
-    /**The scroll panel that contain the drug field*/
-    private JScrollPane drugsPanel;
+    private JComboBox<Customer> customerComboBox;
     
-    /**The drug text area*/
-    private JTextArea drugsArea;
+    /**The scroll panel that contain the drug field*/
+    private JPanel drugsPanel;
     /**The save button*/
     private JPanel saveButtonPanel;
     
     /**The save button label*/
     private JLabel saveButtonLabel;
-
+    private JPanel customerSelectionPanel;
+    private JList<Drug> list;
+    private JPanel panel_1;
+    private JComboBox<Drug> DrugcomboBox;
+    private JButton btnNewButton;
+    private JTextField textField;
+    private GridBagConstraints gbc_DrugcomboBox;
+    private GridBagConstraints gbc_customerComboBox;
+    
+    private ArrayList<Drug> purchaseDrugs;
     /**
      * Ctor of new purchase frame
      * @param mainColor the frame main color
@@ -93,8 +106,11 @@ public class NewPurchaseFrame extends JFrame {
 	/*Set the mane color*/
 	this.mainColor = mainColor;
 	
+	/*Init drugs purchased array */
+	purchaseDrugs = new ArrayList<Drug>();
+	
 	/*Set the frame bounds*/
-	setBounds(100, 100, 450, 300);
+	setBounds(100, 100, 600, 500);
 	
 	/*Set the content panel and its layout*/
 	this.contentPane = new JPanel();
@@ -103,7 +119,7 @@ public class NewPurchaseFrame extends JFrame {
 	setContentPane(this.contentPane);
 	GridBagLayout gbl_contentPane = new GridBagLayout();
 	gbl_contentPane.columnWidths = new int[]{0, 0};
-	gbl_contentPane.rowHeights = new int[] {40, 30, 30, 60, 30, 40};
+	gbl_contentPane.rowHeights = new int[] {30, 20, 150, 20, 20, 40};
 	gbl_contentPane.columnWeights = new double[]{1.0, Double.MIN_VALUE};
 	gbl_contentPane.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
 	this.contentPane.setLayout(gbl_contentPane);
@@ -125,26 +141,6 @@ public class NewPurchaseFrame extends JFrame {
 	this.titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 	this.titlePanel.add(titleLabel);
 
-	/*Set the amount panel and its constraint*/
-	this.amountPanel = new JPanel(new GridLayout(0, 1, 0, 0));
-	this.amountPanel.setBackground(this.mainColor);
-	GridBagConstraints gbc_amountPanel = new GridBagConstraints();
-	gbc_amountPanel.insets = new Insets(10, 100, 5, 100);
-	gbc_amountPanel.fill = GridBagConstraints.BOTH;
-	gbc_amountPanel.gridx = 0;
-	gbc_amountPanel.gridy = 1;
-	this.contentPane.add(amountPanel, gbc_amountPanel);
-
-	/*Set the amount field*/
-	this.amountField = new JTextField();
-	this.amountField.setBorder(null);
-	this.amountField.setForeground(Color.LIGHT_GRAY);
-	this.amountField.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-	this.amountField.setText("amount");
-	this.amountField.setHorizontalAlignment(SwingConstants.CENTER);
-	this.amountPanel.add(this.amountField);
-	this.amountField.setColumns(10);
-
 	/*Set the date panel and its constraint*/
 	this.datePanel = new JPanel();
 	this.datePanel.setBackground(this.mainColor);
@@ -152,7 +148,7 @@ public class NewPurchaseFrame extends JFrame {
 	gbc_datePanel.insets = new Insets(10, 100, 5, 100);
 	gbc_datePanel.fill = GridBagConstraints.BOTH;
 	gbc_datePanel.gridx = 0;
-	gbc_datePanel.gridy = 2;
+	gbc_datePanel.gridy = 1;
 	this.contentPane.add(this.datePanel, gbc_datePanel);
 	
 	/*Set the date panel layout*/
@@ -208,19 +204,76 @@ public class NewPurchaseFrame extends JFrame {
 	this.yearField.setColumns(10);
 
 	/*Set the drug panel and its constraints*/
-	drugsPanel = new JScrollPane();
+	drugsPanel = new JPanel();
 	drugsPanel.setBorder(null);
 	GridBagConstraints gbc_drugsPanel = new GridBagConstraints();
-	gbc_drugsPanel.insets = new Insets(10, 100, 0, 100);
+	gbc_drugsPanel.insets = new Insets(10, 50, 5, 50);
 	gbc_drugsPanel.fill = GridBagConstraints.BOTH;
 	gbc_drugsPanel.gridx = 0;
-	gbc_drugsPanel.gridy = 3;
+	gbc_drugsPanel.gridy = 2;
 	contentPane.add(drugsPanel, gbc_drugsPanel);
+	GridBagLayout gbl_drugsPanel = new GridBagLayout();
+	gbl_drugsPanel.columnWidths = new int[] {50, 300};
+	gbl_drugsPanel.rowHeights = new int[] {150};
+	gbl_drugsPanel.columnWeights = new double[]{1.0, 0.0};
+	gbl_drugsPanel.rowWeights = new double[]{0.0};
+	drugsPanel.setLayout(gbl_drugsPanel);
 	
-	/*Set the drug area*/
-	this.drugsArea = new JTextArea();
-	this.drugsArea.setText("drugs");
-	drugsPanel.setViewportView(drugsArea);
+	list = new JList<Drug>();
+	GridBagConstraints gbc_list = new GridBagConstraints();
+	gbc_list.insets = new Insets(0, 0, 0, 5);
+	gbc_list.fill = GridBagConstraints.BOTH;
+	gbc_list.gridx = 0;
+	gbc_list.gridy = 0;
+	drugsPanel.add(list, gbc_list);
+	
+	panel_1 = new JPanel();
+	GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+	gbc_panel_1.insets = new Insets(0, 5, 0, 0);
+	gbc_panel_1.fill = GridBagConstraints.BOTH;
+	gbc_panel_1.gridx = 1;
+	gbc_panel_1.gridy = 0;
+	drugsPanel.add(panel_1, gbc_panel_1);
+	GridBagLayout gbl_panel_1 = new GridBagLayout();
+	gbl_panel_1.columnWidths = new int[] {75, 75, 10, 30};
+	gbl_panel_1.rowHeights = new int[] {0, 0};
+	gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0};
+	gbl_panel_1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+	panel_1.setLayout(gbl_panel_1);
+
+	Drug[] drugArray = DrugsDataBase.Instance().GetRows().toArray(new Drug[DrugsDataBase.Instance().GetRows().size()]);
+	DrugcomboBox = new JComboBox<Drug>(drugArray);
+	gbc_DrugcomboBox = new GridBagConstraints();
+	gbc_DrugcomboBox.fill = GridBagConstraints.HORIZONTAL;
+	gbc_DrugcomboBox.gridwidth = 2;
+	gbc_DrugcomboBox.anchor = GridBagConstraints.NORTH;
+	gbc_DrugcomboBox.insets = new Insets(0, 0, 0, 5);
+	gbc_DrugcomboBox.gridx = 0;
+	gbc_DrugcomboBox.gridy = 0;
+	panel_1.add(DrugcomboBox, gbc_DrugcomboBox);
+	
+	textField = new JTextField();
+	GridBagConstraints gbc_textField = new GridBagConstraints();
+	gbc_textField.anchor = GridBagConstraints.WEST;
+	gbc_textField.insets = new Insets(0, 0, 0, 5);
+	gbc_textField.gridx = 2;
+	gbc_textField.gridy = 0;
+	panel_1.add(textField, gbc_textField);
+	textField.setColumns(10);
+	
+	btnNewButton = new JButton("Ajouter");
+	GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+	gbc_btnNewButton.anchor = GridBagConstraints.NORTHWEST;
+	gbc_btnNewButton.gridx = 3;
+	gbc_btnNewButton.gridy = 0;
+	panel_1.add(btnNewButton, gbc_btnNewButton);
+	btnNewButton.addMouseListener(new MouseAdapter() {
+	    @Override
+	    public void mouseClicked(MouseEvent event) {
+		purchaseDrugs.add(new Drug((Drug)DrugcomboBox.getSelectedItem(), Integer.parseInt(textField.getText())));
+		list.setListData(purchaseDrugs.toArray(new Drug[purchaseDrugs.size()]));
+	    }
+	});
 	
 	/*Set the prescription panel*/
 	this.prescriptionPanel = new JPanel();
@@ -229,7 +282,7 @@ public class NewPurchaseFrame extends JFrame {
 	gbc_prescriptionPanel.insets = new Insets(10, 100, 5, 100);
 	gbc_prescriptionPanel.fill = GridBagConstraints.BOTH;
 	gbc_prescriptionPanel.gridx = 0;
-	gbc_prescriptionPanel.gridy = 4;
+	gbc_prescriptionPanel.gridy = 3;
 	this.contentPane.add(this.prescriptionPanel, gbc_prescriptionPanel);
 	
 	/*Set then prescription panel layout*/
@@ -260,6 +313,29 @@ public class NewPurchaseFrame extends JFrame {
 	gbc_prescriptionLabel.gridx = 1;
 	gbc_prescriptionLabel.gridy = 0;
 	prescriptionPanel.add(prescriptionLabel, gbc_prescriptionLabel);
+	
+	customerSelectionPanel = new JPanel();
+	GridBagConstraints gbc_customerSelectionPanel = new GridBagConstraints();
+	gbc_customerSelectionPanel.insets = new Insets(10, 100, 5, 100);
+	gbc_customerSelectionPanel.fill = GridBagConstraints.HORIZONTAL;
+	gbc_customerSelectionPanel.gridx = 0;
+	gbc_customerSelectionPanel.gridy = 4;
+	contentPane.add(customerSelectionPanel, gbc_customerSelectionPanel);
+	GridBagLayout gbl_customerSelectionPanel = new GridBagLayout();
+	gbl_customerSelectionPanel.columnWidths = new int[]{97, 30, 0};
+	gbl_customerSelectionPanel.rowHeights = new int[]{22, 0};
+	gbl_customerSelectionPanel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+	gbl_customerSelectionPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+	customerSelectionPanel.setLayout(gbl_customerSelectionPanel);
+	Customer[] customerArray = CustomerDataBase.Instance().GetRows().toArray(new Customer[CustomerDataBase.Instance().GetRows().size()]);
+	customerComboBox = new JComboBox<Customer>(customerArray);
+
+	gbc_customerComboBox = new GridBagConstraints();
+	gbc_customerComboBox.fill = GridBagConstraints.BOTH;
+	gbc_customerComboBox.gridwidth = 3;
+	gbc_customerComboBox.gridx = 0;
+	gbc_customerComboBox.gridy = 0;
+	customerSelectionPanel.add(customerComboBox, gbc_customerComboBox);
 
 	/*Set the save button and its constraint*/
 	this.saveButtonPanel = new JPanel(new GridLayout(0, 1, 0, 0));
@@ -288,6 +364,24 @@ public class NewPurchaseFrame extends JFrame {
 	    public void mouseExited(MouseEvent e)
 	    {
 		mouseExit();
+	    }
+	    
+	    public void mouseClicked(MouseEvent e) {
+		//Purchase(int amount, int day, int month, int year, boolean prescription, Drug[] drugs, Customer customer)
+		//Customer customer = CustomerDataBase.Instance().GetRows().get(0);
+		Customer customer = (Customer)customerComboBox.getSelectedItem();
+		
+		/*Drug[] drugs = {
+			drugsRows.get(0),
+		};*/
+		Purchase purchase = new Purchase(Integer.parseInt(dayField.getText()),
+			Integer.parseInt(monthField.getText()),
+			Integer.parseInt(yearField.getText()),
+			true,
+			purchaseDrugs.toArray(new Drug[purchaseDrugs.size()]),
+			customer);
+		PurchaseDataBase.Instance().addPurchase(purchase);
+		
 	    }
 	});
     }

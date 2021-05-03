@@ -1,11 +1,16 @@
 package fr.userinterface.newframe;
 
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import fr.data.customer.Customer;
+import fr.data.customer.CustomerDataBase;
+import fr.data.drug.*;
 
 import java.awt.GridLayout;
 import java.awt.GridBagLayout;
@@ -54,7 +59,7 @@ public class NewDrugFrame extends JFrame {
     private JPanel typePanel;
     
     /**The first name field*/
-    private JTextField typeField;
+    private JComboBox<MedicamentType> typeField;
     
     /**The panel that contain the laboratory field*/
     private JPanel laboratoryPanel;
@@ -151,14 +156,11 @@ public class NewDrugFrame extends JFrame {
 	this.contentPane.add(this.typePanel, gbc_typePanel);
 
 	/*Set the type field*/
-	this.typeField = new JTextField();
+	this.typeField = new JComboBox<MedicamentType>(MedicamentType.values());
 	this.typeField.setBorder(null);
 	this.typeField.setForeground(Color.LIGHT_GRAY);
 	this.typeField.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-	this.typeField.setText("type");
-	this.typeField.setHorizontalAlignment(SwingConstants.CENTER);
 	this.typePanel.add(typeField);
-	this.typeField.setColumns(10);
 
 	/*Set the laboratory panel and its constraint*/
 	this.laboratoryPanel = new JPanel();
@@ -247,6 +249,19 @@ public class NewDrugFrame extends JFrame {
 	    public void mouseExited(MouseEvent e)
 	    {
 		mouseExit();
+	    }
+	    
+	    public void mouseClicked(MouseEvent e) {
+		double price = Double.parseDouble(priceField.getText());
+		int quantity = Integer.parseInt(quantityField.getText());
+		MedicamentType type = MedicamentType.ANALGÉSIQUES;
+		Drug drug = new Drug(type,
+			nameField.getText(),
+			laboratoryField.getText(),
+			price,
+			quantity);
+		DrugsDataBase.Instance().addDrug(drug);
+		System.out.println("Drug Added");
 	    }
 	});
     }

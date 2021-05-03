@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import fr.data.customer.Customer;
 import fr.data.drug.Drug;
 import fr.data.drug.DrugsDataBase;
+import fr.data.event.Action;
+import fr.data.event.DatabaseEvent;
 import fr.data.event.DatabaseSearchEvent;
 import fr.data.Database;
 import fr.data.ISerializable;
@@ -42,6 +44,7 @@ public class PurchaseDataBase extends Database<Purchase> implements ISerializabl
      * @param purchase The purchase to add
      */
     public void addPurchase(Purchase purchase){
+	purchase.setId(rows.size());
 	DrugsDataBase drugDB = DrugsDataBase.Instance();
 	this.rows.add(purchase);
 	for(Drug drug : purchase.getMedicines()) {
@@ -49,6 +52,8 @@ public class PurchaseDataBase extends Database<Purchase> implements ISerializabl
 	    int quantity = drugRef.getQuantity();
 	    drugDB.getDrug(drug.getId()).setQuantity(quantity - drug.getQuantity());
 	}
+	System.out.println("purchase added");
+	OnRowAdded(new DatabaseEvent<Purchase>(this, Purchase.class, purchase, Action.ADD));
     }
     
     /**
@@ -57,6 +62,7 @@ public class PurchaseDataBase extends Database<Purchase> implements ISerializabl
      */
     public void deletePurchase(Purchase purchase) {
 	this.rows.remove(purchase);
+	OnRowAdded(new DatabaseEvent<Purchase>(this, Purchase.class, purchase, Action.REMOVE));
     }
     
     public Purchase getPurchase(int id) {

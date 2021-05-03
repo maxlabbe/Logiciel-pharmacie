@@ -15,9 +15,16 @@ import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
 import fr.data.Database;
+import fr.data.customer.Customer;
+import fr.data.drug.Drug;
 import fr.data.event.DatabaseSearchEvent;
+import fr.data.purchase.Purchase;
+import fr.userinterface.newframe.NewCustomerFrame;
+import fr.userinterface.newframe.NewDrugFrame;
+import fr.userinterface.newframe.NewPurchaseFrame;
 
 public class SearchPanel<T> extends JPanel {
+    private Class<T> rowType;
     /** the database linked to this searchPanel */
     private Database<T> database;
     
@@ -51,7 +58,8 @@ public class SearchPanel<T> extends JPanel {
      * Ctor of the client research panel
      * @param mainColor The panel's main color
      */
-    public SearchPanel(Database<T> database, String[] labels, Color mainColor) {
+    public SearchPanel(Class<T> rowType,Database<T> database, String[] labels, Color mainColor) {
+	this.rowType = rowType;
 	this.database = database;
 	/* Set the main color then assign it to the panel*/
 	this.mainColor = mainColor;
@@ -125,6 +133,23 @@ public class SearchPanel<T> extends JPanel {
 	gbc_newButton.gridy = 10;
 	this.add(newButton, gbc_newButton);
 	this.newButton.setLayout(new GridLayout(1, 0, 0, 0));
+	
+	this.newButton.addMouseListener(new MouseAdapter() {
+	    public void mousePressed(MouseEvent e)
+	    {
+	        OpenCustomerFrame();
+	    }
+	    
+	    public void mouseEntered(MouseEvent e)
+	    {
+	        newButtonMouseEnter();
+	    }
+	    
+	    public void mouseExited(MouseEvent e)
+	    {
+	        newButtonMouseExit();
+	    }
+	});
 
 	/* Create the new button label and its constraints */
 	this.newButtonLabel = new JLabel("Nouveau");
@@ -133,9 +158,38 @@ public class SearchPanel<T> extends JPanel {
 	this.newButtonLabel.setHorizontalAlignment(SwingConstants.CENTER);
 	this.newButton.add(this.newButtonLabel);
     }
+    public void OpenCustomerFrame()
+    {
+	System.out.println(rowType.getName());
+	if(rowType == Customer.class) {
+	    	NewCustomerFrame customerFrame = new NewCustomerFrame(this.mainColor);
+		customerFrame.setVisible(true);
+	}
+	if(rowType == Drug.class) {
+	    	NewDrugFrame customerFrame = new NewDrugFrame(this.mainColor);
+		customerFrame.setVisible(true);
+	}
+	if(rowType == Purchase.class) {
+	    	NewPurchaseFrame customerFrame = new NewPurchaseFrame(this.mainColor);
+		customerFrame.setVisible(true);
+	}
+    }
     
-    public String[] getResearch() {
-	String[] researches = new String[] {this.nom.getText(), this.firstName.getText(), this.date.getText()};
-	return researches;
+    /**
+     * The new button behavior when entered
+     */
+    public void newButtonMouseEnter()
+    {
+	this.newButton.setBackground(Color.decode("#B0F2B6"));
+        this.newButtonLabel.setForeground(this.mainColor);
+    }
+    
+    /**
+     * The new button behavior when exit
+     */
+    public void newButtonMouseExit()
+    {
+	this.newButton.setBackground(this.mainColor);
+        this.newButtonLabel.setForeground(Color.decode("#00004F"));
     }
 } 

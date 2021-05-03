@@ -1,5 +1,6 @@
 package fr.data.purchase;
 
+import fr.data.Row;
 import fr.data.customer.Customer;
 import fr.data.drug.Drug;
 
@@ -14,7 +15,7 @@ import fr.data.drug.Drug;
  * @author Ophelie Foucault
  * 
  */
-public class Purchase {   
+public class Purchase extends Row {   
     
     /**The amount of the purchase*/
     private double amount;
@@ -44,13 +45,11 @@ public class Purchase {
      * @param drugs The drugs bought
      * @param customerId The customer's store id
      */
-    public Purchase(int amount, int id, int day, int month, int year, boolean prescription, Drug[] drugs, Customer customer) {
+    public Purchase(int day, int month, int year, boolean prescription, Drug[] drugs, Customer customer) {
 	this.amount = 0;
 	for(Drug drug : drugs) {
-	    amount += drug.getPrice();
+	    amount += drug.getPrice() * drug.getQuantity();
 	}
-	
-	this.id = id;
 	this.date[0] = day;
 	this.date[1] = month;
 	this.date[2] = year;
@@ -157,5 +156,16 @@ public class Purchase {
      */
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    @Override
+    public String[] GetRowValues() {
+	String[] values = new String[4];
+	int[] date = this.getDate();
+	values[0] = date[0] + "/" + date[1] + "/" + date[2];
+	values[1] = "" + this.getAmount();
+	values[2] = "" + this.isPrescription();
+	values[3] = "" + this.getCustomer().toString();
+	return values;	
     }
 }

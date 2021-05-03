@@ -71,15 +71,15 @@ public class LeftPanel extends JPanel{
 	this.searchCard = new JPanel(new CardLayout(0,0));
 	
 	String[] customerInputfieldsLabel = {"nom", "prenom", "jj/mm/aaaa"};
-	this.customerSearchPanel = new SearchPanel<Customer>(CustomerDataBase.Instance(), customerInputfieldsLabel, this.mainColor);
+	this.customerSearchPanel = new SearchPanel<Customer>(Customer.class, CustomerDataBase.Instance(), customerInputfieldsLabel, this.mainColor);
 	this.customerSearchPanel.setName("customerSearchPanel");
 
 	String[] drugInputfieldsLabel = {"nom", "laboratory", "type"};
-	this.drugsSearchPanel = new SearchPanel<Drug>(DrugsDataBase.Instance(), drugInputfieldsLabel, this.mainColor);
+	this.drugsSearchPanel = new SearchPanel<Drug>(Drug.class, DrugsDataBase.Instance(), drugInputfieldsLabel, this.mainColor);
 	this.drugsSearchPanel.setName("drugsSearchPanel");
 
 	String[] purchaseInputfieldsLabel = {"purchase id", "customer id", "jj/mm/aaaa"};
-	this.purchasesSearchPanel = new SearchPanel<Purchase>(PurchaseDataBase.Instance(), purchaseInputfieldsLabel, this.mainColor);
+	this.purchasesSearchPanel = new SearchPanel<Purchase>(Purchase.class, PurchaseDataBase.Instance(), purchaseInputfieldsLabel, this.mainColor);
 	this.purchasesSearchPanel.setName("purchasesSearchPanel");
 	
 	GridBagConstraints gbcSearchPanel = new GridBagConstraints();
