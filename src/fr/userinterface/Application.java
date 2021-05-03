@@ -39,17 +39,20 @@ public class Application {
 		    frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+			    /*
 			    System.out.println("confirm exit");
 			    if (JOptionPane.showConfirmDialog(frame, "Are you sure you want to close this window?",
 				    "Close Window?", JOptionPane.YES_NO_OPTION,
 				    JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-				// Save Databases
-				System.out.println("Application Terminated - save databases before closing");
-				FileManager.SaveDatabase("customers", CustomerDataBase.Instance());
-				FileManager.SaveDatabase("drugs", DrugsDataBase.Instance());
-				FileManager.SaveDatabase("purchases", PurchaseDataBase.Instance());
-				System.exit(0);
+
 			    }
+			    */
+			    // Save Databases
+			    System.out.println("Application Terminated - save databases before closing");
+			    FileManager.SaveDatabase("customers", CustomerDataBase.Instance());
+			    FileManager.SaveDatabase("drugs", DrugsDataBase.Instance());
+			    FileManager.SaveDatabase("purchases", PurchaseDataBase.Instance());
+			    System.exit(0);
 			}
 		    });
 		    frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
