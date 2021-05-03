@@ -34,6 +34,16 @@ public abstract class Database<T> {
 	}
     }
     
+    protected void OnRowUpdated(DatabaseEvent<T> event) {
+	Object[] listeners = this.listeners.getListenerList();
+	for(int i = 0; i < listeners.length; i+=2) {
+	    if(listeners[i] == DatabaseListener.class) {
+		((DatabaseListener<T>)listeners[i+1]).OnRowUpdated(event);
+		((DatabaseListener<T>)listeners[i+1]).OnDatabaseUpdate(event);
+	    }
+	}
+    }
+    
     protected void OnSearch(DatabaseSearchEvent event) {
 	Object[] listeners = this.listeners.getListenerList();
 	for(int i = 0; i < listeners.length; i+=2) {

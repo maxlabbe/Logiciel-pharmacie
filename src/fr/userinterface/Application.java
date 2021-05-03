@@ -35,7 +35,7 @@ public class Application {
 		    //69C3FF
 		    //B0F2B6
 		    //096A09
-		    TestFrame frame = new TestFrame(Color.decode("#69C3FF"));
+		    TestFrame frame = new TestFrame(Color.decode("#096A09"));
 		    frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {

@@ -153,7 +153,8 @@ public class SearchPanel<T> extends JPanel {
 
 	/* Create the new button label and its constraints */
 	this.newButtonLabel = new JLabel("Nouveau");
-	this.newButtonLabel.setForeground(Color.decode("#00004F"));
+	this.newButtonLabel.setForeground(Color.white);
+	this.newButton.setBackground(Color.decode("#0c8e0c"));
 	this.newButtonLabel.setFont(new Font("Segoe UI", Font.PLAIN, 25));
 	this.newButtonLabel.setHorizontalAlignment(SwingConstants.CENTER);
 	this.newButton.add(this.newButtonLabel);
@@ -180,8 +181,7 @@ public class SearchPanel<T> extends JPanel {
      */
     public void newButtonMouseEnter()
     {
-	this.newButton.setBackground(Color.decode("#B0F2B6"));
-        this.newButtonLabel.setForeground(this.mainColor);
+	this.newButton.setBackground(Color.decode("#0fb20f"));
     }
     
     /**
@@ -189,7 +189,6 @@ public class SearchPanel<T> extends JPanel {
      */
     public void newButtonMouseExit()
     {
-	this.newButton.setBackground(this.mainColor);
-        this.newButtonLabel.setForeground(Color.decode("#00004F"));
+	this.newButton.setBackground(Color.decode("#0c8e0c"));
     }
 } 
