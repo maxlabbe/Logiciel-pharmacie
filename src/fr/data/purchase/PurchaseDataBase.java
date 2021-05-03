@@ -49,8 +49,8 @@ public class PurchaseDataBase extends Database<Purchase> implements ISerializabl
 	this.rows.add(purchase);
 	for(Drug drug : purchase.getMedicines()) {
 	    Drug drugRef = drugDB.getDrug(drug.getId());
-	    int quantity = drugRef.getQuantity();
-	    drugDB.getDrug(drug.getId()).setQuantity(quantity - drug.getQuantity());
+	    int newQuantity = drugRef.getQuantity() - drug.getQuantity();
+	    drugDB.UpdateQuantity(drugRef, newQuantity);
 	}
 	System.out.println("purchase added");
 	OnRowAdded(new DatabaseEvent<Purchase>(this, Purchase.class, purchase, Action.ADD));

@@ -146,6 +146,12 @@ public class DrugsDataBase extends Database<Drug> implements ISerializable {
 	
 	return false;
     }
+    
+    public void UpdateQuantity(Drug drug, int quantity){
+	Drug row = this.getDrug(drug.getId());
+	row.setQuantity(quantity);
+	OnRowUpdated(new DatabaseEvent<Drug>(this, Drug.class, row, Action.UPDATE));
+    }
 
     public String Serialize() {
 	return new Gson().toJson(this);
