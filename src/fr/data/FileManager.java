@@ -2,14 +2,14 @@ package fr.data;
 
 import com.google.gson.Gson;
 
-import fr.data.ISerializable;
-
-import java.io.FileWriter;
+import java.io.OutputStreamWriter;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.io.IOException;
 /**
  * This interface is use to manipulate file containing data from databases
  * 
@@ -29,7 +29,7 @@ public class FileManager {
     public static void SaveDatabase(String databaseName, ISerializable database){
 	Gson gson = new Gson();
         try {
-            FileWriter logFile = new FileWriter(databaseName + ".json", false);
+            OutputStreamWriter logFile = new OutputStreamWriter(new FileOutputStream(databaseName + ".json"), StandardCharsets.UTF_8);
             logFile.write(gson.toJson(database));
             logFile.close();
         } catch (IOException e) {
