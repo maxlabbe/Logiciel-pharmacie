@@ -27,3 +27,5 @@ customers.json
 drugs.json
 purchases.json
 .settings
+diagram.ucls
+diagram.png
